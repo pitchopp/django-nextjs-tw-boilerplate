@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_hosts",
     "corsheaders",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     "import_export",
     "rest_framework",
     "rest_framework.authtoken",
@@ -233,6 +235,7 @@ REST_AUTH = {
     "JWT_AUTH_RETURN_EXPIRATION": True,
     "USER_DETAILS_SERIALIZER": "authentication.serializers.UserSerializer",
     "PASSWORD_RESET_SERIALIZER": "authentication.serializers.PasswordResetSerializer",
+    "REGISTER_SERIALIZER": "authentication.serializers.RegisterSerializer",
 }
 
 SIMPLE_JWT = {
@@ -243,11 +246,15 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = "authentication.User"
 
+ACCOUNT_ADAPTER = "authentication.adapters.AccountAdapter"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_CHANGE_EMAIL = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Pitchop] "
 
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")

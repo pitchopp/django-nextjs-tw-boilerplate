@@ -4,7 +4,7 @@ from django.conf import settings
 from .emails import blacklist
 
 class AccountAdapter(DefaultAccountAdapter):
-    def get_email_confirmation_redirect_url(self, request):
+    def get_email_verification_redirect_url(self, email_address):
         return f'{settings.WEBSITE_URL}/auth/login?verified=true'
     
     def clean_email(self, email):

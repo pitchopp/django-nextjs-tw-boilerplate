@@ -17,7 +17,7 @@ class UserSerializer(UserDetailsSerializer):
 class PasswordResetSerializer(BasePasswordResetSerializer):
     def url_generator(self, request, user, temp_key):
         url = urljoin(
-            settings.CLIENT_URL,
+            settings.WEBSITE_URL,
             f"auth/reset-password?uid={int_to_base36(user.pk)}&token={temp_key}",
         )
         return url
