@@ -1,12 +1,11 @@
+"use client";
 import axios from "axios";
 import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
-import { unstable_noStore } from "next/cache";
-
-unstable_noStore();
+import { env } from "next-runtime-env";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: env('NEXT_PUBLIC_API_URL'),
   headers: {
     "Content-Type": "application/json",
   },
@@ -85,4 +84,4 @@ export const generateEvaluationReport = async (project, notes) => {
     notes,
   });
   return response;
-}
+};

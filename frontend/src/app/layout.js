@@ -2,7 +2,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
-import { unstable_noStore as noStore } from 'next/cache'
+import { PublicEnvScript } from 'next-runtime-env';
+
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,19 +17,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  noStore()
-  const envVars = JSON.parse(JSON.stringify(process.env))
-  // keep only the variables that start with NEXT_PUBLIC_
-  Object.keys(envVars).forEach((key) => {
-    if (!key.startsWith("NEXT_PUBLIC_")) {
-      delete envVars[key];
-    }
-  });
-
   return (
     <html lang="fr">
+      <head>
+        <PublicEnvScript />
+      </head>
       <body className={`min-h-screen antialiased ${poppins.className}`}>
-        <GlobalStateProvider env={envVars}>
+        <GlobalStateProvider>
           <Toaster position="top-right" />
           {children}
         </GlobalStateProvider>

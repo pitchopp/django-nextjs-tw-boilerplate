@@ -2,10 +2,8 @@
 import { useState } from 'react';
 import GlobalStateContext from '@/lib/context';
 
-const GlobalStateProvider = ({ children, env }) => {
-  const [state, setState] = useState({
-    env,
-  });
+const GlobalStateProvider = ({ children }) => {
+  const [state, setState] = useState({});
 
   return (
     <GlobalStateContext.Provider value={[state, setState]}>

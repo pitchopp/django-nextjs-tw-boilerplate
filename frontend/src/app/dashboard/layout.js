@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaHome, FaDatabase } from "react-icons/fa";
-import { FaGear, FaPowerOff, FaBars, FaXmark } from "react-icons/fa6";
+import { FaPowerOff, FaBars, FaXmark } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/../public/logo.png";
 import { usePathname, useRouter } from "next/navigation";
 import { isAuthenticated } from "@/lib/auth";
+import { env } from "next-runtime-env";
 
 const navItems = [
   {
@@ -25,7 +26,7 @@ const adminNavItems = [
   {
     title: "Admin",
     icon: FaDatabase,
-    href: process.env.NEXT_PUBLIC_ADMIN_URL,
+    href: env("NEXT_PUBLIC_ADMIN_URL"),
     target: "_blank",
   },
 ];
