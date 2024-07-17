@@ -2,9 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
-import api from "@/lib/api";
 import { unstable_noStore as noStore } from 'next/cache'
-import { setCookie } from "@/lib/cookies";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,8 +24,6 @@ export default function RootLayout({ children }) {
       delete envVars[key];
     }
   });
-  
-  setCookie("api_url", envVars.NEXT_PUBLIC_API_URL);
 
   return (
     <html lang="fr">
