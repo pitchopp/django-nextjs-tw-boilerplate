@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
+import api from "@/lib/api";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       delete envVars[key];
     }
   });
+  api.defaults.baseURL = envVars.NEXT_PUBLIC_API_URL;
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
