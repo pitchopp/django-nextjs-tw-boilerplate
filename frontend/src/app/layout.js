@@ -2,7 +2,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
-import { setCookie } from "@/lib/cookies";
 
 const poppins = Poppins({
   subsets: ["latin"],
