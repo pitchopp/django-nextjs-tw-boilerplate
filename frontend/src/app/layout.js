@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
     }
   });
   if (!isServer()) {
-    localStorage.setItem("api_url", process.env.NEXT_PUBLIC_API_URL);
+    localStorage.setItem("api_url", envVars.NEXT_PUBLIC_API_URL);
   }
   return (
     <html lang="fr">

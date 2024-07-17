@@ -16,8 +16,6 @@ services:
     container_name: frontend
     image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-frontend:latest
     restart: unless-stopped
-    volumes:
-      - ./.env:/home/app/code/.env:ro
     env_file:
       - ./.env
     ports:
