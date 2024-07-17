@@ -3,6 +3,7 @@ import "./globals.css";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
 import { isServer } from "@/lib/utils";
+import api from "@/lib/api";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,9 +24,8 @@ export default function RootLayout({ children }) {
       delete envVars[key];
     }
   });
-  if (!isServer()) {
-    localStorage.setItem("api_url", envVars.NEXT_PUBLIC_API_URL);
-  }
+  api.baseUrl = envVars.NEXT_PUBLIC_API_URL;
+  console.log(envVars);
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
