@@ -1,8 +1,10 @@
 import axios from "axios";
 import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
+import { getCookies } from "./cookies";
 
 const api = axios.create({
+  baseURL: getCookies().api_url,
   headers: {
     "Content-Type": "application/json",
   },
