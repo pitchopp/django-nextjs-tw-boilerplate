@@ -2,7 +2,7 @@
 import GlobalStateContext from "@/lib/context";
 import { useContext } from "react";
 
-export default async function page() {
+export default function Page() {
     const [globalState, setGlobalState] = useContext(GlobalStateContext);
     console.log(globalState);
     return (
