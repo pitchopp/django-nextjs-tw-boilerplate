@@ -1,8 +1,9 @@
 import axios from "axios";
 import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
+import { getCookies } from "./cookies";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const baseURL = getCookies().api_url;
 
 const api = axios.create({
   baseURL,
