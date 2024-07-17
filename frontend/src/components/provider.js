@@ -7,6 +7,8 @@ const GlobalStateProvider = ({ children, env }) => {
     env,
   });
 
+  localStorage.setItem("api_url", env.NEXT_PUBLIC_API_URL);
+
   return (
     <GlobalStateContext.Provider value={[state, setState]}>
       {children}

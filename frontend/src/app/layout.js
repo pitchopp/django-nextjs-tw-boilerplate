@@ -22,7 +22,6 @@ export default function RootLayout({ children }) {
       delete envVars[key];
     }
   });
-  localStorage.setItem("api_url", envVars.NEXT_PUBLIC_API_URL);
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
