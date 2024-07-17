@@ -2,7 +2,10 @@ import axios from "axios";
 import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
 
+const baseURL = isServer() ? process.env.NEXT_PUBLIC_API_URL : localStorage.getItem("api_url");
+
 const api = axios.create({
+  baseURL,
   headers: {
     "Content-Type": "application/json",
   },
