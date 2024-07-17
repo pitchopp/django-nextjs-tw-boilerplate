@@ -23,7 +23,8 @@ export default function RootLayout({ children }) {
       delete envVars[key];
     }
   });
-  api.defaults.baseURL = envVars.NEXT_PUBLIC_API_URL;
+  api.baseURL = envVars.NEXT_PUBLIC_API_URL;
+  console.log(envVars);
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
