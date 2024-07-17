@@ -31,8 +31,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}-backend:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-backend:${{ github.sha }}
 
   frontend:
     name: Build and Push Frontend Image
@@ -58,6 +58,6 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: | 
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}-frontend:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}-frontend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-frontend:${{ github.sha }}
 
