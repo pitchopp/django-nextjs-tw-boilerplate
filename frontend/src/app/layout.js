@@ -12,20 +12,20 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Mentoroc",
-  description: "L'assitant IA dédié au mentors OPENCLASSROOMS !",
+  title: "PITCHOP",
+  description: "Website description",
 };
 
 export default function RootLayout({ children }) {
   noStore()
   const envVars = JSON.parse(JSON.stringify(process.env))
   // keep only the variables that start with NEXT_PUBLIC_
-  // Object.keys(envVars).forEach((key) => {
-  //   if (!key.startsWith("_PUBLIC_")) {
-  //     delete envVars[key];
-  //   }
-  // });
-  api.baseUrl = envVars._PUBLIC_API_URL;
+  Object.keys(envVars).forEach((key) => {
+    if (!key.startsWith("NEXT_PUBLIC_")) {
+      delete envVars[key];
+    }
+  });
+  api.baseUrl = envVars.NEXT_PUBLIC_API_URL;
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
