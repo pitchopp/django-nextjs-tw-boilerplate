@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import GlobalStateContext from '@/lib/context';
 
-const GlobalStateProvider = ({ children }) => {
+const GlobalStateProvider = ({ children, env }) => {
   const [state, setState] = useState({
-    // Your initial global state
+    env,
   });
 
   return (

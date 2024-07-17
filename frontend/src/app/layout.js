@@ -15,10 +15,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const envVars = JSON.parse(JSON.stringify(process.env))
+  // keep only the variables that start with NEXT_PUBLIC_
+  Object.keys(envVars).forEach((key) => {
+    if (!key.startsWith("NEXT_PUBLIC_")) {
+      delete envVars[key];
+    }
+  });
   return (
     <html lang="fr">
       <body className={`min-h-screen antialiased ${poppins.className}`}>
-        <GlobalStateProvider>
+        <GlobalStateProvider env={envVars}>
           <Toaster position="top-right" />
           {children}
         </GlobalStateProvider>
