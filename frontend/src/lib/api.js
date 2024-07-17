@@ -3,7 +3,7 @@ import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
 import { getCookies } from "./cookies";
 
-const baseURL = getCookies().api_url;
+const baseURL = localStorage.getItem("api_url");
 
 const api = axios.create({
   baseURL,
