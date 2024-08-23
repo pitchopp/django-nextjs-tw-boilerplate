@@ -1,11 +1,10 @@
-FROM node:21.2.0-alpine as builder
+FROM node:21.2.0-alpine
 
 WORKDIR /code
 
-COPY package*.json ./
-
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD npm run dev
