@@ -120,7 +120,9 @@ export default function DashboardLayout({ children }) {
         >
           <FaBars className="size-5" />
         </button>
+        <main className="p-4 sm:p-8 h-screen">
         {children}
+        </main>
       </div>
     </div>
   );
