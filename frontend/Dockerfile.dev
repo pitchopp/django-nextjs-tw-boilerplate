@@ -1,0 +1,11 @@
+FROM node:21.2.0-alpine as builder
+
+WORKDIR /code
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "dev"]

@@ -4,23 +4,23 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    ports:
+      - "8000:8000"
     env_file:
       - ./.env
     volumes:
-      - ./logs:/home/app/code/logs:rw
-      - ./static:/home/app/code/static:rw
-      - ./media:/home/app/code/media:rw
-    ports:
-      - "8000:8000"
+      - ./backend:/home/app/code:rw
+    command: dev
   
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-frontend:latest
+      dockerfile: Dockerfile.dev
     restart: unless-stopped
     env_file:
       - ./.env
+    volumes:
+      - ./frontend:/code:rw
     ports:
       - "3000:3000"
     depends_on:

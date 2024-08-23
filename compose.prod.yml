@@ -11,6 +11,7 @@ services:
       - ./media:/home/app/code/media:rw
     ports:
       - "8000:8000"
+    command: "prod"
   
   frontend:
     container_name: frontend

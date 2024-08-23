@@ -52,3 +52,4 @@ COPY . ${APP_HOME}
 
 # run entrypoint.prod.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
+CMD ["prod"]
