@@ -1,0 +1,23 @@
+{% extends "account/email/base_message.txt" %}
+{% block content %}{% autoescape off %}
+<p>Merci d'avoir créé un compte client sur notre site !</p>
+<p>Pour finaliser votre inscription et accéder à toutes les fonctionnalités, il ne vous reste plus qu'à activer votre compte. Cliquez simplement sur le lien ci-dessous :</p>
+<div style="margin: 20px; text-align: center">
+  <a
+    href="{{ activate_url }}"
+    style="
+      background-color: #15616d;
+      color: white;
+      padding: 15px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 10px;
+      font-size: 16px;
+    "
+    >Activer mon compte</a
+  >
+</div>
+<p>Si vous avez des problèmes pour cliquer sur le bouton "Réinitialiser mon mot de passe", copiez et collez l'URL ci-dessous dans votre navigateur Web :</p>
+<a href="{{ activate_url }}">{{ activate_url }}</a>
+{% endautoescape %}{% endblock content %}
