@@ -11,7 +11,13 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
 _DOMAIN_NAME = config("DOMAIN_NAME", "localhost")
-ALLOWED_HOSTS = [_DOMAIN_NAME, f"api.{_DOMAIN_NAME}", f"admin.{_DOMAIN_NAME}"]
+ALLOWED_HOSTS = [
+    config("SERVER_IP"),
+    "0.0.0.0",
+    _DOMAIN_NAME,
+    f"api.{_DOMAIN_NAME}",
+    f"admin.{_DOMAIN_NAME}",
+]
 DEFAULT_HOST = config("DEFAULT_HOST", default="api")
 ROOT_HOSTCONF = "backend.hosts"
 
@@ -35,6 +41,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "authentication",
     "api",
+    "post_office",
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "authentication.middleware.UpdateLastActivityMiddleware",
     # HostsResponseMiddleware must be the last middleware in the list
     "django_hosts.middleware.HostsResponseMiddleware",
     # ---------------------------------------------------------------
@@ -76,6 +84,22 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+        },
+    },
+    {
+        "BACKEND": "post_office.template.backends.post_office.PostOfficeTemplates",
+        "APP_DIRS": True,
+        "DIRS": [],
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.template.context_processors.request",
+            ]
         },
     },
 ]
@@ -153,12 +177,37 @@ LOGGING = {
             "backupCount": 5,
             "formatter": "verbose",
         },
+        "post_office_file_info": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/post_office.error.log",
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "post_office_file_error": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/post_office.error.log",
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            "formatter": "verbose",
+        },
     },
     "loggers": {
         "": {
             "handlers": ["console", "file_info", "file_error"],
             "level": "INFO",
             "propagate": True,
+        },
+        "post_office": {
+            "handlers": ["console", "post_office_file_info", "post_office_file_error"],
+            "level": "INFO",
         },
     },
 }
@@ -179,9 +228,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = config(
-    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
-)
+EMAIL_BACKEND = "post_office.EmailBackend"
 EMAIL_HOST = config("SMTP_HOST", default="")
 EMAIL_PORT = config("SMTP_PORT", default="")
 EMAIL_HOST_USER = config("SMTP_USER", default="")
@@ -189,6 +236,18 @@ EMAIL_HOST_PASSWORD = config("SMTP_PASSWORD", default="")
 EMAIL_USE_TLS = config("SMTP_USE_TLS", default=True, cast=bool)
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="")
 SERVER_EMAIL = config("DEFAULT_FROM_EMAIL", default="")
+
+POST_OFFICE = {
+    "BACKENDS": {
+        "default": config(
+            "DJANGO_EMAIL_BACKEND",
+            default="django.core.mail.backends.console.EmailBackend",
+        ),
+    },
+    "DEFAULT_PRIORITY": "now",
+    "DEFAULT_TEMPLATE": "post_office",
+}
+
 CSRF_TRUSTED_ORIGINS = ["http://" + d for d in ALLOWED_HOSTS] + [
     "https://" + d for d in ALLOWED_HOSTS
 ]
@@ -239,22 +298,20 @@ REST_AUTH = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=99 if DEBUG else 1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=99 if DEBUG else 1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=99 if DEBUG else 7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=99 if DEBUG else 7),
     "ROTATE_REFRESH_TOKENS": True,
+    "UPDATE_LAST_LOGIN": True,
 }
 
 AUTH_USER_MODEL = "authentication.User"
-
 ACCOUNT_ADAPTER = "authentication.adapters.AccountAdapter"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CHANGE_EMAIL = True
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Pitchop] "
 
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")
