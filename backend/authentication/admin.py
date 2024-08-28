@@ -7,10 +7,10 @@ User = get_user_model()
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
     fieldsets = BaseUserAdmin.fieldsets + (
-        (None, {'fields': ('photo', 'phone', 'address')}),
+        (None, {'fields': ('phone', 'address')}),
     )
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
-        (None, {'fields': ('photo', 'phone', 'address')}),
+        (None, {'fields': ('phone', 'address')}),
     )
     list_display = BaseUserAdmin.list_display + ('phone', 'address')
     search_fields = BaseUserAdmin.search_fields + ('phone', 'address')
