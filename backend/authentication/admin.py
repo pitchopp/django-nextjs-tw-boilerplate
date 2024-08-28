@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth import get_user_model
+from import_export.admin import ImportExportModelAdmin
 
 User = get_user_model()
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
     fieldsets = BaseUserAdmin.fieldsets + (
         (None, {'fields': ('photo', 'phone', 'address')}),
     )
@@ -15,5 +16,3 @@ class UserAdmin(BaseUserAdmin):
     search_fields = BaseUserAdmin.search_fields + ('phone', 'address')
 
 admin.site.register(User, UserAdmin)
-
-fields = User._meta.get_fields()
