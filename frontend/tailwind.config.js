@@ -6,7 +6,15 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-open-sans)"],
+        serif: ["var(--font-montserrat)"],
+        mono: ["var(--font-roboto-mono)"],
+      },
+    },
+  },
   daisyui: {
     themes: ["light"],
   },
