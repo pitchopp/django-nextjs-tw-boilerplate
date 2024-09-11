@@ -13,7 +13,7 @@ const open_sans = localFont({
     {
       path: "../fonts/Open_Sans/italic.ttf",
       style: "italic",
-    }
+    },
   ],
   variable: "--font-open-sans",
 });
@@ -27,7 +27,7 @@ const roboto_mono = localFont({
     {
       path: "../fonts/Roboto_Mono/italic.ttf",
       style: "italic",
-    }
+    },
   ],
   variable: "--font-roboto-mono",
 });
@@ -36,12 +36,14 @@ const montserrat = localFont({
   src: [
     {
       path: "../fonts/Montserrat/normal.ttf",
+      display: "swap",
       style: "normal",
     },
     {
       path: "../fonts/Montserrat/italic.ttf",
+      display: "swap",
       style: "italic",
-    }
+    },
   ],
   variable: "--font-montserrat",
 });
@@ -53,7 +55,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${open_sans.variable} ${roboto_mono.variable} ${montserrat.variable}`}>
+    <html
+      lang="fr"
+      className={`${open_sans.variable} ${roboto_mono.variable} ${montserrat.variable}`}
+    >
       <head>
         <PublicEnvScript />
       </head>
