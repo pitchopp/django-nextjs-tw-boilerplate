@@ -33,7 +33,7 @@ RUN apk update && \
 RUN pip3 install "poetry==${POETRY_VERSION}" && poetry --version
 
 COPY poetry.lock pyproject.toml ${APP_HOME}/
-RUN poetry install
+RUN poetry install --no-interaction --no-ansi --no-root
 
 # copy entrypoint.sh
 COPY ./entrypoint.sh ${APP_HOME}/
