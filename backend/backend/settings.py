@@ -2,10 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
-from .logging.formatters import formatters
-from .logging.filters import filters
-from .logging.handlers import handlers
-from .logging.loggers import loggers
+from .logging import get_filters, get_formatters, get_handlers, get_loggers
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,10 +137,10 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": formatters,
-    "filters": filters,
-    "handlers": handlers,
-    "loggers": loggers,
+    "formatters": get_formatters(INSTALLED_APPS),
+    "filters": get_filters(INSTALLED_APPS),
+    "handlers": get_handlers(INSTALLED_APPS),
+    "loggers": get_loggers(INSTALLED_APPS),
 }
 
 LANGUAGE_CODE = "en-us"
