@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+from .logging.formatters import formatters
+from .logging.filters import filters
+from .logging.handlers import handlers
+from .logging.loggers import loggers
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,81 +140,10 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname}::{asctime}::{module}::{process:d}::{thread:d}::{message}",
-            "style": "{",
-        },
-        "simple": {
-            "()": "django.utils.log.ServerFormatter",
-            "format": "[{server_time}] {message}",
-            "style": "{",
-        },
-    },
-    "filters": {
-        "require_debug_true": {
-            "()": "django.utils.log.RequireDebugTrue",
-        },
-        "require_debug_false": {
-            "()": "django.utils.log.RequireDebugFalse",
-        },
-    },
-    "handlers": {
-        "console": {
-            "level": "INFO",
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-            "filters": ["require_debug_true"],
-        },
-        "file_info": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/django.info.log",
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-            "backupCount": 5,
-            "formatter": "verbose",
-        },
-        "file_error": {
-            "level": "ERROR",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/django.error.log",
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-            "backupCount": 5,
-            "formatter": "verbose",
-        },
-        "post_office_file_info": {
-            "level": "ERROR",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/post_office.error.log",
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-            "backupCount": 5,
-            "formatter": "verbose",
-        },
-        "post_office_file_error": {
-            "level": "ERROR",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/post_office.error.log",
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-            "backupCount": 5,
-            "formatter": "verbose",
-        },
-        "mail_admins": {
-            "level": "ERROR",
-            "class": "django.utils.log.AdminEmailHandler",
-            "formatter": "verbose",
-        },
-    },
-    "loggers": {
-        "": {
-            "handlers": ["console", "file_info", "file_error"],
-            "level": "INFO",
-            "propagate": True,
-        },
-        "post_office": {
-            "handlers": ["console", "post_office_file_info", "post_office_file_error"],
-            "level": "INFO",
-        },
-    },
+    "formatters": formatters,
+    "filters": filters,
+    "handlers": handlers,
+    "loggers": loggers,
 }
 
 LANGUAGE_CODE = "en-us"
