@@ -18,6 +18,7 @@ if [ "$1" = "prod" ] || [ "$1" = "prod_postgres" ]
 then
     poetry run python manage.py migrate
     poetry run python manage.py collectstatic --noinput
+    poetry run python manage.py crontab add
     poetry run gunicorn backend.wsgi:application --bind 0.0.0.0:8000
 fi
 

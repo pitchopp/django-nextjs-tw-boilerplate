@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "import_export",
+    "django_crontab",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
@@ -316,3 +317,5 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")
+
+CRONJOBS = []
