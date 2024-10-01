@@ -5,11 +5,11 @@ import Link from "next/link";
 import { getUserDetails } from "@/lib/auth";
 import { UserAvatar } from "../user/summary";
 
-export default function Topbar({ drawer }) {
+export default function Topbar({ drawer, className, ...props }) {
   const connectedUser = getUserDetails();
 
   return (
-    <div className="navbar min-h-fit border-b p-1 gap-2 bg-base-100">
+    <div className={`navbar min-h-0 border-b p-1 gap-2 bg-base-100 ${className}`} {...props}>
       <div className="space-x-1">
         <label
           htmlFor={drawer}
