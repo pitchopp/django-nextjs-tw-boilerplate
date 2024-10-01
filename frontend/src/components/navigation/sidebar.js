@@ -11,8 +11,8 @@ export default function Sidebar({ navItems, children, className, ...props }) {
   return (
     <div className={`drawer lg:drawer-open ${className}`} {...props}>
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-      <Topbar drawer="my-drawer" className="h-12 absolute" />
-      <div className="pt-16 p-4 drawer-content h-screen overflow-scroll bg-base-200">
+      <div className="relative pt-16 p-4 drawer-content h-screen overflow-scroll bg-base-200">
+      <Topbar drawer="my-drawer" className="h-12 absolute top-0 left-0" />
         {children}
       </div>
       <div className="drawer-side border-r shadow-sm">
