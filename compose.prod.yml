@@ -11,7 +11,10 @@ services:
       - ./media:/home/app/code/media:rw
     ports:
       - "8000:8000"
-    command: "prod"
+    command: prod
+    depends_on:
+      - redis
+      - celery
   
   frontend:
     container_name: frontend
@@ -23,3 +26,16 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+  
+  celery:
+    container_name: celery
+    image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-backend:latest
+    env_file:
+      - ./.env
+    command: celery
+    depends_on:
+      - redis

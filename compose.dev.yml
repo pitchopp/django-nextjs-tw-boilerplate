@@ -11,7 +11,10 @@ services:
     volumes:
       - ./backend:/home/app/code:rw
     command: dev
-  
+    depends_on:
+      - redis
+      - celery
+
   frontend:
     build:
       context: ./frontend
@@ -26,6 +29,21 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+  
+  redis:
+    image: redis:alpine
+  
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - ./backend:/home/app/code:rw
+    command: celery
+    depends_on:
+      - redis
 
 volumes:
   node_modules:
