@@ -22,8 +22,7 @@ psycopg2-binary = "^2.9.9"
 django-post-office = "^3.9.0"
 django-crontab = "^0.7.1"
 uvicorn = "^0.31.0"
-celery = "^5.4.0"
-redis = "^5.1.1"
+celery = {extras = ["redis"], version = "^5.4.0"}
 
 
 [build-system]
