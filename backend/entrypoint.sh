@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "$1" = "prod" ] || [ "$1" = "prod_postgres" ]
+if [ "$1" = "prod" ]
 then
     poetry run python manage.py migrate
     poetry run python manage.py collectstatic --noinput
