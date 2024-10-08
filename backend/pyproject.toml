@@ -5,7 +5,7 @@ description = ""
 authors = ["Amine SGHIR <sghir.ma@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = ">=3.10,<4"
 django = "^5.0.7"
 django-hosts = "^6.0"
 python-decouple = "^3.8"
@@ -24,6 +24,8 @@ django-crontab = "^0.7.1"
 uvicorn = "^0.31.0"
 celery = {extras = ["redis"], version = "^5.4.0"}
 gunicorn = "^23.0.0"
+django-celery-results = "^2.5.1"
+django-celery-beat = "^2.7.0"
 
 
 [build-system]

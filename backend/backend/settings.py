@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "dj_rest_auth.registration",
     "import_export",
     "django_crontab",
+    'django_celery_results',
+    'django_celery_beat',
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
@@ -257,3 +259,5 @@ CRONJOBS = []
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="redis://redis:6379/0")
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
