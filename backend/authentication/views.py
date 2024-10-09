@@ -4,6 +4,7 @@ from rest_framework import viewsets, permissions
 from django.contrib.auth import get_user_model
 from .serializers import UserSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from .permissions import UserPersmission
 
 User = get_user_model()
 
@@ -20,7 +21,7 @@ class LoginView(LoginView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, UserPersmission]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['email', 'phone', 'address']
     search_fields = ['email', 'phone', 'address']
