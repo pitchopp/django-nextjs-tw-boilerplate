@@ -6,13 +6,6 @@ from import_export.admin import ImportExportModelAdmin
 User = get_user_model()
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
-    fieldsets = BaseUserAdmin.fieldsets + (
-        (None, {'fields': ('phone', 'address')}),
-    )
-    add_fieldsets = BaseUserAdmin.add_fieldsets + (
-        (None, {'fields': ('phone', 'address')}),
-    )
-    list_display = BaseUserAdmin.list_display + ('phone', 'address')
-    search_fields = BaseUserAdmin.search_fields + ('phone', 'address')
+    ...
 
 admin.site.register(User, UserAdmin)
