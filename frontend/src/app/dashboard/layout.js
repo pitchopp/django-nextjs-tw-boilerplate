@@ -1,25 +1,20 @@
-import { FaHome, FaDatabase } from "react-icons/fa";
-import { redirect, usePathname } from "next/navigation";
-import { isAuthenticated, isStaff } from "@/lib/auth";
-import { env } from "next-runtime-env";
-import Sidebar from "@/components/navigation/sidebar";
+import { redirect } from "next/navigation";
+import { isAuthenticated } from "@/lib/auth";
+import { headers } from "next/headers";
+import DashboardSidebar from "./DashboardSidebar";
 
-const navItems = [
-  {
-    title: "Home",
-    icon: FaHome,
-    href: "/dashboard",
-  }
-];
+export default async function DashboardLayout({ children }) {
+  const headersList = headers();
+  const fullUrl = headersList.get("referer") || "";
 
-const adminNavItems = [
-  {
-    title: "Admin",
-    icon: FaDatabase,
-    href: env("NEXT_PUBLIC_ADMIN_URL"),
-    target: "_blank",
-  },
-];
+  if (!isAuthenticated()) redirect(`/auth/login?next=${fullUrl}`);
+
+  return (
+    <main className="!p-0">
+      <DashboardSidebar>{children}</DashboardSidebar>
+    </main>
+  );
+}
 
 
 export default function DashboardLayout({ children }) {
