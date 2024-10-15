@@ -1,14 +1,17 @@
+import { isAuthenticated } from "@/lib/auth";
+import { redirect } from "next/navigation";
+
 export const metadata = {
-    title: {
-        default: "Mentoroc",
-        template: "%s | Mentoroc",
-    }
-}
+  title: {
+    default: "Mentoroc",
+    template: "%s | Mentoroc",
+  },
+};
 
 export default function Layout({ children }) {
-    return (
-        <>
-        {children}
-        </>
-    );
+  if (isAuthenticated()) {
+    redirect("/dashboard");
+  }
+
+  return <>{children}</>;
 }
