@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Suspense, useState } from "react";
 import { FaEnvelope, FaKey } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
@@ -9,7 +9,7 @@ import {
   storeAccessToken,
   storeRefreshToken,
 } from "@/lib/auth";
-
+import toast from "react-hot-toast";
 
 const ResetMessage = () => {
   const params = useSearchParams();
@@ -52,12 +52,14 @@ export default function LoginForm() {
         storeAccessToken(res.data.access);
         storeRefreshToken(res.data.refresh);
         setUserDetails(res.data.user);
-        setLoggedIn(true);
       })
       .catch((err) => {
         setErrors(err.response.data);
       })
-      .then(() => {
+      .catch(() => {
+        toast.error("Une erreur s'est produite. Veuillez réessayer.");
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
