@@ -66,3 +66,10 @@ export const isStaff = () => {
   const user = getUserDetails();
   return user && user.is_staff;
 }
+
+
+export const handleLoginSuccess = (res) => {
+  storeAccessToken(res.data.access);
+  storeRefreshToken(res.data.refresh);
+  setUserDetails(res.data.user);
+}

@@ -1,14 +1,10 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { FaEnvelope, FaKey } from "react-icons/fa";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { login } from "@/lib/api";
-import {
-  setUserDetails,
-  storeAccessToken,
-  storeRefreshToken,
-} from "@/lib/auth";
+import { handleLoginSuccess } from "@/lib/auth";
 import toast from "react-hot-toast";
 
 const ResetMessage = () => {
@@ -41,7 +37,16 @@ const ResetMessage = () => {
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
+  const router = useRouter();
+  const params = useSearchParams();
+  const next = params.get("next") || "/dashboard";
+
+  useEffect(() => {
+    if (router && loggedIn) router.push(next || "/dashboard");
+  }, [router, loggedIn, next]);
+    
   const handleSubmit = (e) => {
     setLoading(true);
     const email = e.target.email.value;
@@ -49,9 +54,8 @@ export default function LoginForm() {
     e.preventDefault();
     login(email, password)
       .then((res) => {
-        storeAccessToken(res.data.access);
-        storeRefreshToken(res.data.refresh);
-        setUserDetails(res.data.user);
+        handleLoginSuccess(res);
+        setLoggedIn(true);
       })
       .catch((err) => {
         setErrors(err.response.data);

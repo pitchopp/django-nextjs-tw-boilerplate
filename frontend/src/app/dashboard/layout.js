@@ -15,18 +15,3 @@ export default async function DashboardLayout({ children }) {
     </main>
   );
 }
-
-
-export default function DashboardLayout({ children }) {
-  const pathname = usePathname();
-
-  const allNavItems = isStaff() ? navItems.concat(adminNavItems) : navItems;
-
-  if (!isAuthenticated()) redirect(`/auth/login?next=${pathname}`);
-
-  return (
-    <main>
-      <Sidebar navItems={allNavItems}>{children}</Sidebar>
-    </main>
-  );
-}
