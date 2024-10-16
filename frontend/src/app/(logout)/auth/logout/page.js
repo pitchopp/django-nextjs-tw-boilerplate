@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { logout } from "@/lib/api";
 import { removeTokens } from "@/lib/auth";
-
+import { googleLogout } from '@react-oauth/google';
 
 export default function Logout() {
   const router = useRouter();
@@ -15,6 +15,7 @@ export default function Logout() {
   useEffect(() => {
     logout().finally(() => {
       removeTokens();
+      googleLogout();
       setLoggedOut(true);
     });
   }, [])

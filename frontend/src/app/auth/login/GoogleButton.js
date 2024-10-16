@@ -36,7 +36,7 @@ export default function GoogleButton({ clientId, className, ...props }) {
           onError={() => {
             toast.error("Login Failed");
           }}
-          // useOneTap
+          useOneTap
           auto_select
         />
       </GoogleOAuthProvider>
