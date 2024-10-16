@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     "dj_rest_auth.registration",
     "import_export",
     "django_crontab",
-    'django_celery_results',
-    'django_celery_beat',
+    "django_celery_results",
+    "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
@@ -249,15 +249,13 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")
+GOOGLE_CLIENT_ID = config("GOOGLE_OAUTH_CLIENT_ID")
 
 CRONJOBS = []
 
-
-
-
 # CELERY_BROKER_URL = 'redis://redis:6379/0'  # Redis broker
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="redis://redis:6379/0")
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
