@@ -1,8 +1,10 @@
-import localFont from "next/font/local";
 import "./globals.css";
+import localFont from "next/font/local";
 import GlobalStateProvider from "@/components/provider";
 import { Toaster } from "react-hot-toast";
 import { PublicEnvScript } from "next-runtime-env";
+import { env } from "next-runtime-env";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const open_sans = localFont({
   src: [
@@ -54,6 +56,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const googleClientId = env("GOOGLE_OAUTH_CLIENT_ID");
+
   return (
     <html
       lang="fr"
@@ -63,10 +67,12 @@ export default function RootLayout({ children }) {
         <PublicEnvScript />
       </head>
       <body className={`min-h-screen antialiased`}>
-        <GlobalStateProvider>
-          <Toaster position="top-right" />
-          {children}
-        </GlobalStateProvider>
+        <GoogleOAuthProvider clientId={googleClientId}>
+          <GlobalStateProvider>
+            <Toaster position="top-right" />
+            {children}
+          </GlobalStateProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
