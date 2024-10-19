@@ -4,24 +4,36 @@ import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { UserAvatar } from "@/components/user/summary";
 import Link from "next/link";
-import { getUserDetails, handleLoginSuccess, isAuthenticated } from "@/lib/auth";
+import {
+  getUserDetails,
+  handleLoginSuccess,
+  isAuthenticated,
+} from "@/lib/auth";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import api from "@/lib/api";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ navItems }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const loggedIn = isAuthenticated();
   const user = getUserDetails();
 
   const googleLoginSuccess = ({ credential }) => {
+    setLoading(true);
     api
       .post("/auth/google/", { credential })
       .then((res) => {
         handleLoginSuccess(res);
-        window.location.reload();
+        router.refresh();
       })
       .catch(() => {
         toast.error("Login Failed");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   useGoogleOneTapLogin({
@@ -67,7 +79,12 @@ export default function Navbar({ navItems }) {
               </Link>
             </li>
           ))}
-          {loggedIn && (
+          {loading && (
+            <li>
+              <div className="loading"></div>
+            </li>
+          )}
+          {!loading && loggedIn && (
             <>
               <li>
                 <Link href="/dashboard" className="btn btn-sm btn-outline">
@@ -77,7 +94,7 @@ export default function Navbar({ navItems }) {
               <UserAvatar size="xs" user={user} />
             </>
           )}
-          {!loggedIn && (
+          {!loading && !loggedIn && (
             <>
               <li>
                 <Link href="/auth/login" className="btn btn-sm btn-outline">

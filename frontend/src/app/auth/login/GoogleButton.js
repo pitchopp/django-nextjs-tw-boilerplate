@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function GoogleButton({ className, ...props }) {
+  const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function GoogleButton({ className, ...props }) {
   }, [router, loggedIn, next]);
 
   const googleLoginSuccess = ({ credential }) => {
+    setLoading(true);
     api
       .post("/auth/google/", { credential })
       .then((res) => {
@@ -26,18 +28,25 @@ export default function GoogleButton({ className, ...props }) {
       })
       .catch(() => {
         toast.error("Login Failed");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (
     <div className={`grid justify-center gap-2 ${className}`} {...props}>
-      <GoogleLogin
-        onSuccess={googleLoginSuccess}
-        onError={() => {
-          toast.error("Login Failed");
-        }}
-        useOneTap
-        auto_select
-      />
+      {loading ? (
+        <div className="loading"></div>
+      ) : (
+        <GoogleLogin
+          onSuccess={googleLoginSuccess}
+          onError={() => {
+            toast.error("Login Failed");
+          }}
+          useOneTap
+          auto_select
+        />
+      )}
     </div>
   );
 }
