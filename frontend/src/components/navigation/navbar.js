@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getUserDetails, handleLoginSuccess, isAuthenticated } from "@/lib/auth";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
+import api from "@/lib/api";
 
 export default function Navbar({ navItems }) {
   const loggedIn = isAuthenticated();
