@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import logo from "../../../public/logo.png";
+import { getUserDetails, isAuthenticated } from "@/lib/auth";
+import { UserAvatar, UserSummary } from "@/components/user/summary";
 
 const navItems = [
   { name: "Home", href: "/home" },
@@ -10,6 +12,8 @@ const navItems = [
 ];
 
 export default function Layout({ children }) {
+  const loggedIn = isAuthenticated();
+  const user = getUserDetails();
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -32,7 +36,9 @@ export default function Layout({ children }) {
                 <div className="size-12">
                   <Image src={logo} alt="logo" />
                 </div>
-                <span className="text-2xl font-bold text-secondary pb-0.5">IMMO KIT</span>
+                <span className="text-2xl font-bold text-secondary pb-0.5">
+                  IMMO KIT
+                </span>
               </div>
             </Link>
           </div>
@@ -48,16 +54,33 @@ export default function Layout({ children }) {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link className="btn btn-sm btn-outline" href="/auth/login">
-                  Connexion
-                </Link>
-              </li>
-              <li>
-                <Link className="btn btn-sm btn-secondary" href="/auth/sign-up">
-                  Inscription
-                </Link>
-              </li>
+              {loggedIn && (
+                <>
+                  <li>
+                    <Link href="/dashboard" className="btn btn-sm btn-outline">
+                      Tableau de bord
+                    </Link>
+                  </li>
+                    <UserAvatar size="xs" user={user} />
+                </>
+              )}
+              {!loggedIn && (
+                <>
+                  <li>
+                    <Link href="/auth/login" className="btn btn-sm btn-outline">
+                      Connexion
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/auth/sign-up"
+                      className="btn btn-sm btn-secondary"
+                    >
+                      Inscription
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
