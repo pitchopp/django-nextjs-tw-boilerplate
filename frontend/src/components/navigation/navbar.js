@@ -4,7 +4,7 @@ import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { UserAvatar } from "@/components/user/summary";
 import Link from "next/link";
-import { getUserDetails, isAuthenticated } from "@/lib/auth";
+import { getUserDetails, handleLoginSuccess, isAuthenticated } from "@/lib/auth";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 
