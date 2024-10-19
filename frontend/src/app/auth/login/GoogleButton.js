@@ -17,7 +17,7 @@ export default function GoogleButton({ className, ...props }) {
     if (router && loggedIn) router.push(next || "/dashboard");
   }, [router, loggedIn, next]);
 
-  const onLoginSuccess = ({ credential }) => {
+  const googleLoginSuccess = ({ credential }) => {
     api
       .post("/auth/google/", { credential })
       .then((res) => {
@@ -31,7 +31,7 @@ export default function GoogleButton({ className, ...props }) {
   return (
     <div className={`grid justify-center gap-2 ${className}`} {...props}>
       <GoogleLogin
-        onSuccess={onLoginSuccess}
+        onSuccess={googleLoginSuccess}
         onError={() => {
           toast.error("Login Failed");
         }}

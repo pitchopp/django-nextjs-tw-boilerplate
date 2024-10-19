@@ -1,4 +1,6 @@
 import { getCookies, setCookie, removeCookie } from "@/lib/cookies";
+import api from "./api";
+import toast from "react-hot-toast";
 
 /**
  * Stores a token in cookies.
@@ -24,52 +26,51 @@ export const getToken = (type) => {
 export const removeTokens = () => {
   removeCookie("accessToken");
   removeCookie("refreshToken");
-  removeUserDetails()
+  removeUserDetails();
 };
 
 export const isAuthenticated = () => {
   return !!getAccessToken();
-}
+};
 
 export const getAccessToken = () => {
   return getToken("access");
-}
+};
 
 export const getRefreshToken = () => {
   return getToken("refresh");
-}
+};
 
 export const storeAccessToken = (token) => {
   storeToken(token, "access");
-}
+};
 
 export const storeRefreshToken = (token) => {
   storeToken(token, "refresh");
-}
+};
 
 export const setUserDetails = (user) => {
   setCookie("userDetails", JSON.stringify(user));
-}
+};
 
 export const getUserDetails = () => {
   if (getCookies().userDetails) {
     return JSON.parse(getCookies().userDetails);
   }
   return null;
-}
+};
 
 export const removeUserDetails = () => {
   removeCookie("userDetails");
-}
+};
 
 export const isStaff = () => {
   const user = getUserDetails();
   return user && user.is_staff;
-}
-
+};
 
 export const handleLoginSuccess = (res) => {
   storeAccessToken(res.data.access);
   storeRefreshToken(res.data.refresh);
   setUserDetails(res.data.user);
-}
+};
