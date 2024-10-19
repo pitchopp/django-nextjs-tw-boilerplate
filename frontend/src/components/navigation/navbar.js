@@ -81,7 +81,7 @@ export default function Navbar({ navItems }) {
           ))}
           {loading && (
             <li>
-              <div className="loading"></div>
+              <div className="loading loading-sm"></div>
             </li>
           )}
           {!loading && loggedIn && (
