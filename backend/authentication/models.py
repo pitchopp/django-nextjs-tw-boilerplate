@@ -10,4 +10,4 @@ class User(AbstractUser):
         db_table = "auth_user"
 
     def __str__(self):
-        return self.email
+        return f"User({self.email})"
