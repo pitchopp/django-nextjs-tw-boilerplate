@@ -1,10 +1,12 @@
 from .settings import *
 
+SECRET_KEY = "insecure-for-testing"
+
 # Use an in-memory database for speed
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
     }
 }
 
@@ -13,9 +15,9 @@ AUTH_PASSWORD_VALIDATORS = []
 
 # Use a fast hasher for testing
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.MD5PasswordHasher',
+    "django.contrib.auth.hashers.MD5PasswordHasher",
 ]
 
 # Other settings you can tweak for testing
 DEBUG = False
-TEMPLATES[0]['OPTIONS']['debug'] = False
+TEMPLATES[0]["OPTIONS"]["debug"] = False

@@ -7,13 +7,13 @@ from .logging import get_filters, get_formatters, get_handlers, get_loggers
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("DJANGO_SECRET_KEY")
+SECRET_KEY = config("DJANGO_SECRET_KEY", default=None)
 
 DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
 _DOMAIN_NAME = config("DOMAIN_NAME", "localhost")
 ALLOWED_HOSTS = [
-    config("SERVER_IP"),
+    config("SERVER_IP", default="127.0.0.1"),
     "0.0.0.0",
     _DOMAIN_NAME,
     f"api.{_DOMAIN_NAME}",
@@ -249,7 +249,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")
-GOOGLE_CLIENT_ID = config("GOOGLE_OAUTH_CLIENT_ID")
+GOOGLE_CLIENT_ID = config("GOOGLE_OAUTH_CLIENT_ID", default="")
 
 CRONJOBS = []
 
