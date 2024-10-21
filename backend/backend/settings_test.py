@@ -18,6 +18,8 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.MD5PasswordHasher",
 ]
 
+LOGGING = {}
+
 # Other settings you can tweak for testing
 DEBUG = False
 TEMPLATES[0]["OPTIONS"]["debug"] = False
