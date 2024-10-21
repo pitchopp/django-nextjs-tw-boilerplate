@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
 
       - name: setup poetry
-        run: pip install poetry
+        run: pip install poetry==1.8.1
 
       - name: install dependencies
         working-directory: ./backend
