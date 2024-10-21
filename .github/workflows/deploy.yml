@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: '3.12'
       
+      - name: change directory
+        run: cd backend
+      
       - name: setup poetry
         run: pip install poetry
       
