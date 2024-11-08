@@ -44,7 +44,7 @@ export default function Navbar({ navItems }) {
   });
 
   return (
-    <div className="navbar shadow w-full lg:justify-around">
+    <header className="navbar shadow w-full lg:justify-around">
       <div className="flex-none lg:hidden">
         <label
           htmlFor="my-drawer-3"
@@ -67,7 +67,7 @@ export default function Navbar({ navItems }) {
           </div>
         </Link>
       </div>
-      <div className="hidden flex-none lg:block">
+      <nav className="hidden flex-none lg:block">
         <ul className="menu menu-horizontal gap-4 items-center">
           {navItems.map((item) => (
             <li key={item.name}>
@@ -109,7 +109,7 @@ export default function Navbar({ navItems }) {
             </>
           )}
         </ul>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 }
