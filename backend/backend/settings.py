@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_spectacular",
     "django_filters",
     "allauth",
     "allauth.account",
@@ -216,8 +217,15 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    # "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Your Project API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    # 'SCHEMA_GENERATOR_CLASS': 'myproject.schema.HostAwareSchemaGenerator',
 }
 
 REST_AUTH = {
