@@ -63,8 +63,8 @@ class GoogleTokenSerializer(serializers.Serializer):
         except User.DoesNotExist:
             self.user = User.objects.create_user(
                 email=self.google_info.get("email"),
-                first_name=self.google_info.get("given_name"),
-                last_name=self.google_info.get("family_name"),
+                first_name=self.google_info.get("given_name") or "",
+                last_name=self.google_info.get("family_name") or "",
                 username=self.google_info.get("email"),
                 password=get_random_string(length=16),
             )
