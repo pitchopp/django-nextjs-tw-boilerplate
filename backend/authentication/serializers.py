@@ -11,7 +11,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import SocialAccount, EmailAddress
 
 User = get_user_model()
 
@@ -70,9 +70,15 @@ class GoogleTokenSerializer(serializers.Serializer):
             )
             # Create a social account entry for this user
             self.social_account = SocialAccount.objects.create(user=self.user, provider="google", uid=self.google_info.get("sub"))
-
+            
+            EmailAddress.objects.create(
+                user=self.user,
+                email=self.user.email,
+                verified=True,
+                primary=True,
+            )
         result["google_info"] = self.google_info
         result["user"] = self.user
         return result
         
-
+ 
