@@ -13,6 +13,7 @@ export default async function Login() {
   
   const headerList = headers();
   const prevUrl = headerList.get("referer");
+  const prevPath = prevUrl ? new URL(prevUrl).pathname : null;
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
       <div className="w-full grid max-w-md p-4 space-y-4 bg-base-100 rounded-lg">
@@ -23,11 +24,11 @@ export default async function Login() {
         <div>
           {googleEnabled && (
             <>
-              <GoogleButton prevUrl={prevUrl} />
+              <GoogleButton prevUrl={prevPath} />
               <div className="divider">ou</div>
             </>
           )}
-          <LoginForm prevUrl={prevUrl} />
+          <LoginForm prevUrl={prevPath} />
         </div>
       </div>
     </main>
