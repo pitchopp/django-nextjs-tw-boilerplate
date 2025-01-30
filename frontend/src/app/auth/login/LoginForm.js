@@ -34,14 +34,14 @@ const ResetMessage = () => {
   return null;
 };
 
-export default function LoginForm() {
+export default function LoginForm({ prevUrl }) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/dashboard";
+  const next = params.get("next") || prevUrl || "/dashboard";
 
   useEffect(() => {
     if (router && loggedIn) router.push(next || "/dashboard");

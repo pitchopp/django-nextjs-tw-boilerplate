@@ -6,13 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function GoogleButton({ className, ...props }) {
+export default function GoogleButton({ className, prevUrl, ...props }) {
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/dashboard";
+  const next = params.get("next") || prevUrl || "/dashboard";
 
   useEffect(() => {
     if (router && loggedIn) router.push(next || "/dashboard");

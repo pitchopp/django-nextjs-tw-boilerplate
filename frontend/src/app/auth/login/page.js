@@ -3,11 +3,16 @@ import logo from "@/../public/logo.png";
 import LoginForm from "./LoginForm";
 import GoogleButton from "./GoogleButton";
 import { env } from "next-runtime-env";
+import { headers } from "next/headers";
+
 
 export default async function Login() {
   const googleEnabled =
     !env("DISABLE_GOOGLE_LOGIN") ||
     ["0", "false"].includes(env("DISABLE_GOOGLE_LOGIN").toLowerCase());
+  
+  const headerList = headers();
+  const prevUrl = headerList.get("referer");
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
       <div className="w-full grid max-w-md p-4 space-y-4 bg-base-100 rounded-lg">
@@ -18,11 +23,11 @@ export default async function Login() {
         <div>
           {googleEnabled && (
             <>
-              <GoogleButton />
+              <GoogleButton prevUrl={prevUrl} />
               <div className="divider">ou</div>
             </>
           )}
-          <LoginForm />
+          <LoginForm prevUrl={prevUrl} />
         </div>
       </div>
     </main>
