@@ -44,9 +44,9 @@ export default function LoginForm({ prevUrl }) {
   const next = params.get("next") || prevUrl || "/dashboard";
 
   useEffect(() => {
-    if (router && loggedIn) router.push(next || "/dashboard");
+    if (router && loggedIn) router.push(next);
   }, [router, loggedIn, next]);
-    
+
   const handleSubmit = (e) => {
     setLoading(true);
     const email = e.target.email.value;
