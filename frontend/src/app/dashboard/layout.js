@@ -1,14 +1,21 @@
-import { redirect } from "next/navigation";
+"use client";
 import { isAuthenticated } from "@/lib/auth";
-import { headers } from "next/headers";
 import DashboardSidebar from "./DashboardSidebar";
+import { usePathname, useRouter } from "next/navigation";
 
-export default async function DashboardLayout({ children }) {
-  const headersList = headers();
-  const fullUrl = headersList.get("referer") || "";
+export default function DashboardLayout({ children }) {
+  const router = useRouter();
+  const pathname = usePathname();
 
-  if (!isAuthenticated()) redirect(`/auth/login?next=${fullUrl}`);
-
+  if (!isAuthenticated()) {
+    router.push(`/auth/login?next=${encodeURIComponent(pathname)}`);
+    return (
+      <div>
+        Vous devez être connecté pour atteindre cette page... Nous allons vous
+        rediriger.
+      </div>
+    );
+  }
   return (
     <main className="!p-0">
       <DashboardSidebar>{children}</DashboardSidebar>
