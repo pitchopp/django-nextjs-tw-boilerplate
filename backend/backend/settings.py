@@ -12,13 +12,17 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", default=None)
 DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
 _DOMAIN_NAME = config("DOMAIN_NAME", "localhost")
-ALLOWED_HOSTS = [
-    config("SERVER_IP", default="127.0.0.1"),
-    "0.0.0.0",
-    _DOMAIN_NAME,
-    f"api.{_DOMAIN_NAME}",
-    f"admin.{_DOMAIN_NAME}",
-]
+ALLOWED_HOSTS = (
+    [
+        config("SERVER_IP", default="127.0.0.1"),
+        "0.0.0.0",
+        _DOMAIN_NAME,
+        f"api.{_DOMAIN_NAME}",
+        f"admin.{_DOMAIN_NAME}",
+    ]
+    if not DEBUG
+    else ["*"]
+)
 DEFAULT_HOST = config("DEFAULT_HOST", default="api")
 ROOT_HOSTCONF = "backend.hosts"
 
