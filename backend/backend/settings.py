@@ -263,7 +263,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 WEBSITE_URL = config("WEBSITE_URL", default="http://localhost:3000")
 GOOGLE_CLIENT_ID = config("GOOGLE_OAUTH_CLIENT_ID", default="")
 
-CRONJOBS = []
+CRONJOBS: list[str] = []
 
 # CELERY_BROKER_URL = 'redis://redis:6379/0'  # Redis broker
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="redis://redis:6379/0")

@@ -5,8 +5,8 @@ description = ""
 authors = ["Amine SGHIR <sghir.ma@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4"
-django = "^5.0.7"
+python = ">=3.12,<4"
+django = "^5.1.6"
 django-hosts = "^6.0"
 python-decouple = "^3.8"
 djangorestframework = "^3.15.2"
@@ -36,6 +36,16 @@ optional = true
 pytest-cov = "^5.0.0"
 pytest-django = "^4.9.0"
 
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.9.6"
+mypy = "^1.15.0"
+types-requests = "^2.32.0.20241016"
+types-python-dateutil = "^2.9.0.20241206"
+black = "^25.1.0"
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "backend.settings_test"
 python_files = "tests.py test_*.py *_tests.py"
@@ -51,3 +61,10 @@ show_missing = true
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = ["migrations", "tests"]
+
+[tool.ruff]
+exclude = ["migrations", "tests", "backend/settings_test.py"]
