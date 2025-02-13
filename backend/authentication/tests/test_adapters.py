@@ -42,7 +42,7 @@ def test_adapter_default_blacklist():
     adapter = AccountAdapter()
     assert adapter.emails_blacklist is not None
     assert len(adapter.emails_blacklist) > 0
-  
+
 
 @pytest.mark.django_db
 def test_send_mail(account_adapter, monkeypatch):

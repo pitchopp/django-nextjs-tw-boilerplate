@@ -5,7 +5,8 @@ from import_export.admin import ImportExportModelAdmin
 
 User = get_user_model()
 
-class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
-    ...
+
+class UserAdmin(BaseUserAdmin, ImportExportModelAdmin): ...
+
 
 admin.site.register(User, UserAdmin)

@@ -68,3 +68,25 @@ exclude = ["migrations", "tests"]
 
 [tool.ruff]
 exclude = ["migrations", "tests", "backend/settings_test.py"]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | env
+  | venv
+  | __pycache__
+  | migrations  # Django migrations are often excluded as they are auto-generated.
+  | static
+  | media
+  | node_modules
+)/
+'''
