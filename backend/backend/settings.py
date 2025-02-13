@@ -229,7 +229,6 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Your Project API",
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
-    # 'SCHEMA_GENERATOR_CLASS': 'myproject.schema.HostAwareSchemaGenerator',
 }
 
 REST_AUTH = {
