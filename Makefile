@@ -10,6 +10,12 @@ frontend-test:
 backend-test:
 	cd backend && make test
 
+backend-format:
+	cd backend && make format
+
+frontend-format:
+	cd frontend && make format
+
 lint:
 	make frontend-lint
 	make backend-lint
@@ -17,6 +23,10 @@ lint:
 test:
 	make frontend-test
 	make backend-test
+
+format:
+	make frontend-format
+	make backend-format
 
 dev:
 	docker compose -f compose.dev.yml -p boilerplate-dev up --watch --build --remove-orphans
