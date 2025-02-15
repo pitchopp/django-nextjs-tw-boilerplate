@@ -1,3 +1,5 @@
+PROJECT_NAME := boilerplate
+
 frontend-lint:
 	cd frontend && make lint
 
@@ -29,14 +31,14 @@ format:
 	make backend-format
 
 dev:
-	docker compose -f compose.dev.yml -p boilerplate-dev up --watch --build --remove-orphans
+	docker compose -f compose.dev.yml -p $(PROJECT_NAME) up --watch --build --remove-orphans
 
 qa:
-	docker compose -f compose.qa.yml -p boilerplate-qa up -d --build --remove-orphans
-	docker compose -f compose.qa.yml -p boilerplate-qa watch --no-up
+	docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa up -d --build --remove-orphans
+	# docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa watch --no-up
 
 prod:
-	docker compose -f compose.prod.yml -p boilerplate up -d --build --remove-orphans
+	docker compose -f compose.prod.yml -p $(PROJECT_NAME) up -d --build --remove-orphans
 
 watchtower:
-	docker run -d --name boilerplate-watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --interval 60 boilerplate-backend boilerplate-frontend boilerplate-celery
+	docker run -d --name $(PROJECT_NAME)-watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --interval 60 $(PROJECT_NAME)-backend $(PROJECT_NAME)-frontend $(PROJECT_NAME)-celery
