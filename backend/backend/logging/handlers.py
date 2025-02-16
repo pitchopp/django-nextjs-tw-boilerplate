@@ -1,4 +1,10 @@
+import os
+
+
 def get_handlers(apps):
+    # create logs directory if it doesn't exist
+    if not os.path.exists("logs"):
+        os.makedirs("logs")
 
     handlers = {
         "console": {
