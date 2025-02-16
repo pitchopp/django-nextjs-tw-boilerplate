@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    "django_extensions",
     "import_export",
     "django_crontab",
     "django_celery_results",
