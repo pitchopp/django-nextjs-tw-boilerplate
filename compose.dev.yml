@@ -1,5 +1,6 @@
 services:
   backend:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -21,6 +22,7 @@ services:
           - api.backend
 
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
@@ -36,13 +38,15 @@ services:
       - backend
     networks:
       - ntwrk
-  
+
   redis:
+    container_name: redis
     image: redis:alpine
     networks:
       - ntwrk
-  
+
   celery:
+    container_name: celery
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -56,8 +60,29 @@ services:
     networks:
       - ntwrk
 
+  blog:
+    container_name: blog
+    image: ghost:5-alpine
+    restart: always
+    ports:
+      - 3001:2368
+    environment:
+      url: http://localhost:3001
+      mail__transport: SMTP
+      mail__options__host: ${SMTP_HOST}
+      mail__options__port: ${SMTP_PORT}
+      mail__options__auth__user: ${SMTP_USER}
+      mail__options__auth__pass: ${SMTP_PASSWORD}
+      mail__from: ${DEFAULT_FROM_EMAIL}
+      database__client: sqlite3
+      database__connection__filename: content/data/ghost-test.db
+      NODE_ENV: development
+    volumes:
+      - ghost:/var/lib/ghost/content
+
 volumes:
   node_modules:
+  ghost:
 
 networks:
   ntwrk:
