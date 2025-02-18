@@ -14,6 +14,11 @@ services:
     depends_on:
       - redis
       - celery
+    networks:
+      ntwrk:
+        aliases:
+          - backend
+          - api.backend
 
   frontend:
     build:
@@ -29,6 +34,8 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - ntwrk
   
   redis:
     image: redis:alpine
@@ -44,6 +51,11 @@ services:
     command: celery
     depends_on:
       - redis
+    networks:
+      - ntwrk
 
 volumes:
   node_modules:
+
+networks:
+  ntwrk:
