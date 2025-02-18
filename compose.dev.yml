@@ -39,6 +39,8 @@ services:
   
   redis:
     image: redis:alpine
+    networks:
+      - ntwrk
   
   celery:
     build:
