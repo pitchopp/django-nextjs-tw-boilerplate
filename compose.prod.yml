@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend
+    container_name: ${REPO_NAME}-backend
     image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-backend:latest
     restart: unless-stopped
     env_file:
@@ -17,7 +17,7 @@ services:
       - celery
 
   frontend:
-    container_name: frontend
+    container_name: ${REPO_NAME}-frontend
     image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-frontend:latest
     restart: unless-stopped
     env_file:
@@ -28,11 +28,11 @@ services:
       - backend
 
   redis:
-    container_name: redis
+    container_name: ${REPO_NAME}-redis
     image: redis:alpine
 
   celery:
-    container_name: celery
+    container_name: ${REPO_NAME}-celery
     image: ${DOCKERHUB_USERNAME}/${REPO_NAME}-backend:latest
     env_file:
       - ./.env
@@ -41,7 +41,7 @@ services:
       - redis
 
   blog:
-    container_name: blog
+    container_name: ${REPO_NAME}-blog
     image: ghost:5-alpine
     restart: unless-stopped
     depends_on:
@@ -68,7 +68,7 @@ services:
       - ./blog/content:/var/lib/ghost/content
 
   blog-db:
-    container_name: blog-db
+    container_name: ${REPO_NAME}-blog-db
     image: mysql:8.0
     restart: unless-stopped
     environment:

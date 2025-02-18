@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend
+    container_name: ${REPO_NAME}-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -28,7 +28,7 @@ services:
           path: ./backend/Dockerfile
 
   frontend:
-    container_name: frontend
+    container_name: ${REPO_NAME}-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -45,12 +45,12 @@ services:
           path: ./frontend
 
   redis:
-    container_name: redis
+    container_name: ${REPO_NAME}-redis
     image: redis:alpine
     restart: unless-stopped
 
   celery:
-    container_name: celery
+    container_name: ${REPO_NAME}-celery
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -74,7 +74,7 @@ services:
           path: ./backend/Dockerfile
 
   blog:
-    container_name: blog
+    container_name: ${REPO_NAME}-blog
     image: ghost:5-alpine
     restart: unless-stopped
     depends_on:
@@ -101,7 +101,7 @@ services:
       - ./blog/content:/var/lib/ghost/content
 
   blog-db:
-    container_name: blog-db
+    container_name: ${REPO_NAME}-blog-db
     image: mysql:8.0
     restart: unless-stopped
     environment:
