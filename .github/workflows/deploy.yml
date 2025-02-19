@@ -4,31 +4,100 @@ on:
   push:
     branches:
       - main
+      - qa
   workflow_dispatch:
 
 jobs:
-  backend:
-    name: Build and Push Backend Image
+  backend-lint:
+    name: Lint Backend Code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: setup python environment
-        uses: actions/setup-python@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: "3.12"
-
-      - name: setup poetry
-        run: pip install poetry==1.8.1
-
-      - name: install dependencies
+      
+      - name: Install Poetry
+        run: pip install poetry==2.0.1
+      
+      - name: Install dependencies
         working-directory: ./backend
-        run: poetry install --no-interaction --no-root --with test
-
-      - name: run tests
+        run: poetry install --no-interaction --no-ansi --no-root --with lint
+      
+      - name: Run linter
+        run: make backend-lint
+    
+  backend-test:
+    name: Test Backend Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      
+      - name: Install Poetry
+        run: pip install poetry==2.0.1
+      
+      - name: Install dependencies
         working-directory: ./backend
-        run: poetry run pytest
+        run: poetry install --no-interaction --no-ansi --no-root --with test
+      
+      - name: Run tests
+        run: make backend-test
+  
+  frontend-lint:
+    name: Lint Frontend Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21"
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+      
+      - name: Run linter
+        run: make frontend-lint
+  
+  frontend-test:
+    name: Test Frontend Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21"
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+      
+      - name: Run tests
+        run: make frontend-test
+  
+  backend-build-push:
+    name: Build and Push Backend Image
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs: [backend-lint, backend-test, frontend-lint, frontend-test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -50,9 +119,11 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}-backend:${{ github.sha }}
 
-  frontend:
+  frontend-build-push:
     name: Build and Push Frontend Image
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
+    needs: [backend-lint, backend-test, frontend-lint, frontend-test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
