@@ -206,11 +206,11 @@ CORS_ORIGIN_WHITELIST = (
 #         "default": {
 #             "BACKEND": "storages.backends.s3.S3Storage",
 #             "OPTIONS": {
-#                 "access_key": config("AWS_ACCESS_KEY_ID"),
-#                 "secret_key": config("AWS_SECRET_ACCESS_KEY"),
-#                 "bucket_name": config("AWS_STORAGE_BUCKET_NAME"),
-#                 "endpoint_url": config("AWS_S3_ENDPOINT_URL"),
-#                 "region_name": config("AWS_S3_REGION_NAME"),
+#                 "access_key": config("AWS_ACCESS_KEY_ID", ""),
+#                 "secret_key": config("AWS_SECRET_ACCESS_KEY", ""),
+#                 "bucket_name": config("AWS_STORAGE_BUCKET_NAME", ""),
+#                 "endpoint_url": config("AWS_S3_ENDPOINT_URL", ""),
+#                 "region_name": config("AWS_S3_REGION_NAME", ""),
 #             },
 #         },
 #         "staticfiles": {

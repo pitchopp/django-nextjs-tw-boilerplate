@@ -23,3 +23,4 @@ LOGGING = {}
 # Other settings you can tweak for testing
 DEBUG = False
 TEMPLATES[0]["OPTIONS"]["debug"] = False  # type: ignore[index]
+STORAGES = {}
