@@ -10,7 +10,7 @@ services:
       - ./static:/home/app/code/static:rw
       - ./media:/home/app/code/media:rw
     ports:
-      - "8000:8000"
+      - "${BACKEND_PORT}:8000"
     command: prod
     depends_on:
       - redis
@@ -23,7 +23,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT}:3000"
     depends_on:
       - backend
 
