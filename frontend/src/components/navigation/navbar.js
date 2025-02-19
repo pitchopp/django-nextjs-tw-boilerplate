@@ -21,6 +21,10 @@ export default function Navbar({ navItems }) {
   const loggedIn = isAuthenticated();
   const user = getUserDetails();
 
+  const googleEnabled =
+    !env("DISABLE_GOOGLE_LOGIN") ||
+    ["0", "false"].includes(env("DISABLE_GOOGLE_LOGIN").toLowerCase());
+
   const googleLoginSuccess = ({ credential }) => {
     setLoading(true);
     api
@@ -36,7 +40,10 @@ export default function Navbar({ navItems }) {
         setLoading(false);
       });
   };
+
   useGoogleOneTapLogin({
+    disabled: googleEnabled,
+    auto_select: true,
     onSuccess: googleLoginSuccess,
     onError: () => {
       toast.error("Login Failed");
