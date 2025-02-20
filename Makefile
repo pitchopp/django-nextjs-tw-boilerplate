@@ -1,4 +1,7 @@
 PROJECT_NAME := boilerplate
+.PHONY: all
+
+all: format lint test
 
 frontend-lint:
 	cd frontend && make lint
