@@ -42,7 +42,7 @@ export default function Navbar({ navItems }) {
   };
 
   useGoogleOneTapLogin({
-    disabled: googleEnabled,
+    disabled: !googleEnabled || loading || loggedIn,
     auto_select: true,
     onSuccess: googleLoginSuccess,
     onError: () => {
