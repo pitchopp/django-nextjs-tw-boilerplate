@@ -31,7 +31,7 @@ services:
       - ./.env
     volumes:
       - ./frontend/src:/code/src:rw
-      - node_modules:/code/node_modules:rw
+      - /code/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -81,7 +81,6 @@ services:
       - ghost:/var/lib/ghost/content
 
 volumes:
-  node_modules:
   ghost:
 
 networks:
