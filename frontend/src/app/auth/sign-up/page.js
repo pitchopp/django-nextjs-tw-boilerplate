@@ -10,10 +10,6 @@ import Link from "next/link";
 import { FaLock } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
-export const metadata = {
-  title: "Inscription",
-};
-
 export default function Signup() {
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);

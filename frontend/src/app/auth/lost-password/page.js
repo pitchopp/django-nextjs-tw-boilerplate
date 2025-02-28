@@ -4,10 +4,6 @@ import logo from "@/../public/logo.png";
 import { resetPassword } from "@/lib/api";
 import { useState } from "react";
 
-export const metadata = {
-  title: "Mot de passe oublié",
-};
-
 export default function LostPassword() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});

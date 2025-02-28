@@ -5,9 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import logo from "@/../public/logo.png";
 import { confirmResetPassword } from "@/lib/api";
 
-export const metadata = {
-  title: "Réinitialisation du mot de passe",
-};
 
 const ResetForm = () => {
   const params = useSearchParams();
