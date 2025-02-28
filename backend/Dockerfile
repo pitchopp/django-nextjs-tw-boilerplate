@@ -32,9 +32,8 @@ RUN apk update && \
 
 RUN pip3 install "poetry==${POETRY_VERSION}" && poetry --version
 
-COPY poetry.lock pyproject.toml ${APP_HOME}/
-# run poetry lock if poetry.lock is not available
-RUN poetry lock --no-interaction --no-ansi --no-update
+COPY pyproject.toml poetry.loc[k] ${APP_HOME}/
+RUN if [ ! -f poetry.lock ]; then poetry lock --no-interaction --no-ansi --no-update; fi
 RUN poetry install --no-interaction --no-ansi --no-root
 
 # copy entrypoint.sh
