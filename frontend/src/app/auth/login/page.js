@@ -4,6 +4,10 @@ import LoginForm from "./LoginForm";
 import GoogleButton from "./GoogleButton";
 import { env } from "next-runtime-env";
 
+export const metadata = {
+  title: "Connexion",
+};
+
 export default async function Login() {
   const googleEnabled =
     !env("DISABLE_GOOGLE_LOGIN") ||
