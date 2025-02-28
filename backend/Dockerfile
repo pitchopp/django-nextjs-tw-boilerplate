@@ -27,12 +27,14 @@ ENV PYTHONFAULTHANDLER=1 \
 
 # Update and install necessary packages using apk
 RUN apk update && \
-    apk add --no-cache bash build-base curl gettext git libpq-dev wget libffi-dev && \
-    rm -rf /var/cache/apk/*
+  apk add --no-cache bash build-base curl gettext git libpq-dev wget libffi-dev && \
+  rm -rf /var/cache/apk/*
 
 RUN pip3 install "poetry==${POETRY_VERSION}" && poetry --version
 
 COPY poetry.lock pyproject.toml ${APP_HOME}/
+# run poetry lock if poetry.lock is not available
+RUN poetry lock --no-interaction --no-ansi --no-update
 RUN poetry install --no-interaction --no-ansi --no-root
 
 # copy entrypoint.sh
