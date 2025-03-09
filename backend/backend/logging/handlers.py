@@ -76,7 +76,7 @@ def get_handlers(apps):
         handlers[f"{app}_file_warn"] = {
             "level": "WARNING",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / f"logs/{app}.warn.log",
+            "filename": BASE_DIR / f"logs/{filename}.warn.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
