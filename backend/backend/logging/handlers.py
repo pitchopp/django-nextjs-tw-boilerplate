@@ -1,4 +1,7 @@
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 def get_handlers(apps):
@@ -21,7 +24,7 @@ def get_handlers(apps):
         "file_debug": {
             "level": "DEBUG",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/debug.log",
+            "filename": BASE_DIR / "logs/debug.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
@@ -29,7 +32,15 @@ def get_handlers(apps):
         "file_info": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/info.log",
+            "filename": BASE_DIR / "logs/info.log",
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "file_warn": {
+            "level": "WARNING",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logs/warn.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
@@ -37,7 +48,7 @@ def get_handlers(apps):
         "file_error": {
             "level": "ERROR",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/error.log",
+            "filename": BASE_DIR / "logs/error.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
@@ -45,10 +56,11 @@ def get_handlers(apps):
     }
 
     for app in apps:
+        filename = app.split(".")[0]
         handlers[f"{app}_file_debug"] = {
             "level": "DEBUG",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": f"logs/{app}.debug.log",
+            "filename": BASE_DIR / f"logs/{filename}.debug.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
@@ -56,7 +68,15 @@ def get_handlers(apps):
         handlers[f"{app}_file_info"] = {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": f"logs/{app}.info.log",
+            "filename": BASE_DIR / f"logs/{filename}.info.log",
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        }
+        handlers[f"{app}_file_warn"] = {
+            "level": "WARNING",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / f"logs/{app}.warn.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
@@ -64,7 +84,7 @@ def get_handlers(apps):
         handlers[f"{app}_file_error"] = {
             "level": "ERROR",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": f"logs/{app}.error.log",
+            "filename": BASE_DIR / f"logs/{filename}.error.log",
             "maxBytes": 1024 * 1024 * 5,  # 5 MB
             "backupCount": 5,
             "formatter": "verbose",
