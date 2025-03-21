@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import api from "@/lib/api";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { env } from "next-runtime-env";
 
 export default function Navbar({ navItems }) {
   const router = useRouter();
@@ -22,8 +23,8 @@ export default function Navbar({ navItems }) {
   const user = getUserDetails();
 
   const googleEnabled =
-    !env("DISABLE_GOOGLE_LOGIN") ||
-    ["0", "false"].includes(env("DISABLE_GOOGLE_LOGIN").toLowerCase());
+    !env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN") ||
+    ["0", "false"].includes(env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN").toLowerCase());
 
   const googleLoginSuccess = ({ credential }) => {
     setLoading(true);
