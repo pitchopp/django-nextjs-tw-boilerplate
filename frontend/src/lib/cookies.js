@@ -4,7 +4,7 @@ export const getCookies = () => {
     if (isServer()) {
         const { cookies } = require("next/headers")
         let result = {}
-        const cookieStore = await cookies();
+        const cookieStore = cookies();
         cookieStore.getAll().forEach((cookie) => {
             result[cookie.name] = cookie.value
         })
@@ -19,7 +19,7 @@ export const getCookies = () => {
 export const setCookie = (name, value, options) => {
     if (isServer()) {
         const { cookies } = require("next/headers")
-        const cookieStore = await cookies()
+        const cookieStore = cookies()
         cookieStore.set(name, value, options)
     }
     else {
