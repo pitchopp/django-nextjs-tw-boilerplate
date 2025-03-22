@@ -9,9 +9,11 @@ export const metadata = {
 };
 
 export default async function Login() {
+  const googleDisabled = env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN");
   const googleEnabled =
-    !env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN") ||
-    ["0", "false"].includes(env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN").toLowerCase());
+    !googleDisabled ||
+    ["0", "false"].includes(googleDisabled.toLowerCase());
+  console.log(googleDisabled, googleEnabled)
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
       <div className="w-full grid max-w-md p-4 space-y-4 bg-base-100 rounded-lg">

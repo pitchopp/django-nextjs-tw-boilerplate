@@ -12,19 +12,21 @@ import {
 import { useGoogleOneTapLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import api from "@/lib/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { env } from "next-runtime-env";
 
 export default function Navbar({ navItems }) {
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const loggedIn = isAuthenticated();
   const user = getUserDetails();
 
+  const googleDisabled = env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN");
+
   const googleEnabled =
-    !env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN") ||
-    ["0", "false"].includes(env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN").toLowerCase());
+    !googleDisabled || ["0", "false"].includes(googleDisabled.toLowerCase());
 
   const googleLoginSuccess = ({ credential }) => {
     setLoading(true);
@@ -51,6 +53,12 @@ export default function Navbar({ navItems }) {
     },
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <header className="navbar shadow w-full lg:justify-around">
       <div className="flex-none lg:hidden">
@@ -70,7 +78,7 @@ export default function Navbar({ navItems }) {
               <Image src={logo} alt="logo" />
             </div>
             <span className="text-2xl font-bold text-secondary pb-0.5">
-              IMMO KIT
+              PITCHOP
             </span>
           </div>
         </Link>

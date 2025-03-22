@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import { isServer } from "@/lib/utils";
 import { getToken, isAuthenticated, removeTokens } from "@/lib/auth";
 import { env } from "next-runtime-env";
 
@@ -29,9 +28,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       removeTokens();
-      if (!isServer()) {
-        window.location.reload();
-      }
+      window.location.reload();
     }
     return Promise.reject(error);
   }

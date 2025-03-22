@@ -1,6 +1,4 @@
-import { getCookies, setCookie, removeCookie } from "@/lib/cookies";
-import api from "./api";
-import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 /**
  * Stores a token in cookies.
@@ -8,7 +6,7 @@ import toast from "react-hot-toast";
  * @param {"access" | "refresh"} type - The type of the token (access or refresh).
  */
 export const storeToken = (token, type) => {
-  setCookie(type + "Token", token);
+  Cookies.set(type + "Token", token);
 };
 
 /**
@@ -17,15 +15,15 @@ export const storeToken = (token, type) => {
  * @returns {string | undefined} The token, if found.
  */
 export const getToken = (type) => {
-  return getCookies()[type + "Token"];
+  return Cookies.get(type + "Token");
 };
 
 /**
  * Removes both access and refresh tokens from cookies.
  */
 export const removeTokens = () => {
-  removeCookie("accessToken");
-  removeCookie("refreshToken");
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
   removeUserDetails();
 };
 
@@ -50,18 +48,18 @@ export const storeRefreshToken = (token) => {
 };
 
 export const setUserDetails = (user) => {
-  setCookie("userDetails", JSON.stringify(user));
+  Cookies.set("userDetails", JSON.stringify(user));
 };
 
 export const getUserDetails = () => {
-  if (getCookies().userDetails) {
-    return JSON.parse(getCookies().userDetails);
+  if (Cookies.get("userDetails")) {
+    return JSON.parse(Cookies.get("userDetails"));
   }
   return null;
 };
 
 export const removeUserDetails = () => {
-  removeCookie("userDetails");
+  Cookies.remove("userDetails");
 };
 
 export const isStaff = () => {

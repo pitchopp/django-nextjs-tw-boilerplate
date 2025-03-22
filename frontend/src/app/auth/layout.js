@@ -1,15 +1,16 @@
-import { isAuthenticated } from "@/lib/auth";
+import { isAuthenticated } from "@/lib/server/auth";
 import { redirect } from "next/navigation";
 
 export const metadata = {
   title: {
-    default: "Mentoroc",
-    template: "%s | Mentoroc",
+    default: "Pitchop",
+    template: "%s | Pitchop",
   },
 };
 
-export default function Layout({ children }) {
-  if (isAuthenticated()) {
+export default async function Layout({ children }) {
+  const loggedIn = await isAuthenticated();
+  if (loggedIn) {
     redirect("/dashboard");
   }
 
