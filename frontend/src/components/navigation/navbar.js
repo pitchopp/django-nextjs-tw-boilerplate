@@ -16,6 +16,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { env } from "next-runtime-env";
 
+function GoogleOneTapLogin({ loading, loggedIn, onSuccess }) {
+  useGoogleOneTapLogin({
+    disabled: loading || loggedIn,
+    auto_select: true,
+    onSuccess,
+    onError: () => {
+      toast.error("Login Failed");
+    },
+  });
+  return null;
+}
+
 export default function Navbar({ navItems }) {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -44,17 +56,6 @@ export default function Navbar({ navItems }) {
       });
   };
 
-  if (googleEnabled) {
-    useGoogleOneTapLogin({
-      disabled: loading || loggedIn,
-      auto_select: true,
-      onSuccess: googleLoginSuccess,
-      onError: () => {
-        toast.error("Login Failed");
-      },
-    });
-  }
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -63,6 +64,13 @@ export default function Navbar({ navItems }) {
 
   return (
     <header className="navbar shadow-sm w-full lg:justify-around">
+      {googleEnabled && (
+        <GoogleOneTapLogin
+          loading={loading}
+          loggedIn={loggedIn}
+          onSuccess={googleLoginSuccess}
+        />
+      )}
       <div className="flex-none lg:hidden">
         <label
           htmlFor="my-drawer-3"
