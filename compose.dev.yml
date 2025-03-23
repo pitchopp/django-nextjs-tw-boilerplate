@@ -12,9 +12,6 @@ services:
     volumes:
       - ./backend:/home/app/code:rw
     command: dev
-    depends_on:
-      - redis
-      - celery
     networks:
       ntwrk:
         aliases:
@@ -29,13 +26,13 @@ services:
     restart: unless-stopped
     env_file:
       - ./.env
+    environment:
+      NEXT_TURBOPACK_TRACING: 1
     volumes:
       - ./frontend/src:/code/src:rw
       - /code/node_modules
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
     networks:
       - ntwrk
 
@@ -59,29 +56,6 @@ services:
       - redis
     networks:
       - ntwrk
-
-  blog:
-    container_name: blog
-    image: ghost:5-alpine
-    restart: always
-    ports:
-      - 3001:2368
-    environment:
-      url: http://localhost:3001
-      mail__transport: SMTP
-      mail__options__host: ${SMTP_HOST}
-      mail__options__port: ${SMTP_PORT}
-      mail__options__auth__user: ${SMTP_USER}
-      mail__options__auth__pass: ${SMTP_PASSWORD}
-      mail__from: ${DEFAULT_FROM_EMAIL}
-      database__client: sqlite3
-      database__connection__filename: content/data/ghost-test.db
-      NODE_ENV: development
-    volumes:
-      - ghost:/var/lib/ghost/content
-
-volumes:
-  ghost:
 
 networks:
   ntwrk:

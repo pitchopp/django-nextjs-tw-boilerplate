@@ -31,8 +31,8 @@ export const UserAvatar = ({ user, size = "sm", className, ...props }) => {
     "6xl": "p-8",
     "7xl": "p-9",
     "8xl": "p-10",
-    "9xl": "p-11"
-  }
+    "9xl": "p-11",
+  };
 
   const textSize = {
     xs: "text-xs",
@@ -48,13 +48,10 @@ export const UserAvatar = ({ user, size = "sm", className, ...props }) => {
     "7xl": "text-7xl",
     "8xl": "text-8xl",
     "9xl": "text-9xl",
-  }
+  };
 
   return (
-    <div
-      className={`avatar placeholder h-fit w-fit ${className}`}
-      {...props}
-    >
+    <div className={`avatar avatar-placeholder ${className}`} {...props}>
       <div
         className={`text-neutral-content ${padding[size]} rounded-full`}
         style={{ backgroundColor: bgColor }}
@@ -66,4 +63,4 @@ export const UserAvatar = ({ user, size = "sm", className, ...props }) => {
       </div>
     </div>
   );
-}
+};

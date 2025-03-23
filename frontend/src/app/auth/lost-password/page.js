@@ -30,14 +30,14 @@ export default function LostPassword() {
   };
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
-      <div className="w-full grid max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
+      <div className="flex flex-col items-center w-full max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
         <Image src={logo} alt="Logo" className="mx-auto w-32 h-auto" />
         <h1 className="text-3xl font-bold text-center">Mot de passe oublié</h1>
         <p className="text-center">
           Entrez votre adresse email pour recevoir un lien de réinitialisation.
         </p>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="input input-bordered flex items-center gap-4">
+        <form onSubmit={handleSubmit} className="max-w-xs w-full flex flex-col gap-4">
+          <label className="input flex items-center gap-4">
             <input
               required
               id="email"

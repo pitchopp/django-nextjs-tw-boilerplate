@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import logo from "@/../public/logo.png";
 import { confirmResetPassword } from "@/lib/api";
 
-
 const ResetForm = () => {
   const params = useSearchParams();
   const router = useRouter();
@@ -32,8 +31,11 @@ const ResetForm = () => {
       });
   };
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <label className="input input-bordered flex items-center gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-xs w-full flex flex-col gap-4"
+    >
+      <label className="input flex items-center gap-4">
         <input
           required
           id="password"
@@ -42,7 +44,7 @@ const ResetForm = () => {
           placeholder="Nouveau mot de passe"
         />
       </label>
-      <label className="input input-bordered flex items-center gap-4">
+      <label className="input flex items-center gap-4">
         <input
           required
           id="password2"
@@ -73,7 +75,7 @@ const ResetForm = () => {
 export default function ResetPasswordPage() {
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
-      <div className="w-full grid max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
+      <div className="flex flex-col items-center w-full max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
         <Image src={logo} alt="Logo" className="mx-auto w-32 h-auto" />
         <h1 className="text-3xl font-bold text-center">
           Réinitialisation du mot de passe

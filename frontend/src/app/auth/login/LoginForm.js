@@ -34,7 +34,7 @@ const ResetMessage = () => {
   return null;
 };
 
-export default function LoginForm() {
+export default function LoginForm({ className, ...props }) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
@@ -46,7 +46,7 @@ export default function LoginForm() {
   useEffect(() => {
     if (router && loggedIn) router.push(next || "/dashboard");
   }, [router, loggedIn, next]);
-    
+
   const handleSubmit = (e) => {
     setLoading(true);
     const email = e.target.email.value;
@@ -69,7 +69,12 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off" className="space-y-5">
+    <form
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      className={`max-w-xs w-full flex flex-col gap-4 ${className}`}
+      {...props}
+    >
       <Suspense>
         <ResetMessage />
       </Suspense>
@@ -79,7 +84,7 @@ export default function LoginForm() {
             <div key={index}>Email : {error}</div>
           ))}
       </div>
-      <label className="input input-bordered flex items-center gap-4">
+      <label className="input flex items-center gap-4">
         <FaEnvelope className="size-4 opacity-70" />
         <input
           required
@@ -89,13 +94,14 @@ export default function LoginForm() {
           placeholder="Email"
         />
       </label>
-      <div className="text-error text-sm">
-        {errors.password &&
-          errors.password.map((error, index) => (
+      {errors.password && (
+        <div className="text-error text-sm">
+          {errors.password.map((error, index) => (
             <div key={index}>Mot de passe : {error}</div>
           ))}
-      </div>
-      <label className="input input-bordered flex items-center gap-4">
+        </div>
+      )}
+      <label className="input flex items-center gap-4">
         <FaKey className="size-4 opacity-70" />
         <input
           required
@@ -110,12 +116,13 @@ export default function LoginForm() {
           Mot de passe oublié ?
         </Link>
       </div>
-      <div className="text-error text-sm">
-        {errors.non_field_errors &&
-          errors.non_field_errors.map((error, index) => (
+      {errors.non_field_errors && (
+        <div className="text-error text-sm">
+          {errors.non_field_errors.map((error, index) => (
             <div key={index}>{error}</div>
           ))}
-      </div>
+        </div>
+      )}
       <div className="text-center">
         <button type="submit" disabled={loading} className="btn btn-primary">
           {loading && <span className="loading loading-spinner"></span>}

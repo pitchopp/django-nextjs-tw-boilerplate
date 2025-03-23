@@ -52,17 +52,21 @@ export default function Signup() {
 
   return (
     <main className="flex items-center justify-center h-screen bg-base-200 p-4">
-      <div className="w-full grid max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
+      <div className="flex flex-col items-center w-full max-w-md p-4 space-y-8 bg-base-100 rounded-lg">
         <Image src={logo} alt="Logo" className="mx-auto w-32 h-auto" />
-        <h1 className="text-3xl font-bold text-center">Inscription</h1>
-        <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4">
+        <h1 className="text-3xl font-bold text-center mb-0">Inscription</h1>
+        <form
+          onSubmit={handleSubmit}
+          autoComplete="off"
+          className="max-w-xs w-full flex flex-col gap-4"
+        >
           <div className="text-error text-sm">
             {errors.email &&
               errors.email.map((error, index) => (
                 <div key={index}>{error}</div>
               ))}
           </div>
-          <label className="input input-bordered flex items-center gap-4">
+          <label className="input flex items-center gap-4">
             <FaEnvelope className="size-4 opacity-70" />
             <input
               required
@@ -72,13 +76,14 @@ export default function Signup() {
               placeholder="Email"
             />
           </label>
-          <div className="text-error text-sm">
-            {errors.password1 &&
-              errors.password1.map((error, index) => (
+          {errors.password1 && (
+            <div className="text-error text-sm">
+              {errors.password1.map((error, index) => (
                 <div key={index}>{error}</div>
               ))}
-          </div>
-          <label className="input input-bordered flex items-center gap-4">
+            </div>
+          )}
+          <label className="input flex items-center gap-4">
             <FaKey className="size-4 opacity-70" />
             <input
               required
@@ -88,13 +93,14 @@ export default function Signup() {
               placeholder="Mot de passe"
             />
           </label>
-          <div className="text-error text-sm">
-            {errors.password2 &&
-              errors.password2.map((error, index) => (
+          {errors.password2 && (
+            <div className="text-error text-sm">
+              {errors.password2.map((error, index) => (
                 <div key={index}>{error}</div>
               ))}
-          </div>
-          <label className="input input-bordered flex items-center gap-4">
+            </div>
+          )}
+          <label className="input flex items-center gap-4">
             <FaLock className="size-4 opacity-70" />
             <input
               required
@@ -104,17 +110,13 @@ export default function Signup() {
               placeholder="Confirmez le mot de passe"
             />
           </label>
-          <div>
-            <Link href="/auth/lost-password" className="link">
-              Mot de passe oublié ?
-            </Link>
-          </div>
-          <div className="text-error text-sm">
-            {errors.non_field_errors &&
-              errors.non_field_errors.map((error, index) => (
+          {errors.non_field_errors && (
+            <div className="text-error text-sm">
+              {errors.non_field_errors.map((error, index) => (
                 <div key={index}>{error}</div>
               ))}
-          </div>
+            </div>
+          )}
           <div className="text-center">
             <button
               type="submit"

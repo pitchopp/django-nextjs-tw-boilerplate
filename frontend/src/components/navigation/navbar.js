@@ -44,14 +44,16 @@ export default function Navbar({ navItems }) {
       });
   };
 
-  useGoogleOneTapLogin({
-    disabled: !googleEnabled || loading || loggedIn,
-    auto_select: true,
-    onSuccess: googleLoginSuccess,
-    onError: () => {
-      toast.error("Login Failed");
-    },
-  });
+  if (googleEnabled) {
+    useGoogleOneTapLogin({
+      disabled: loading || loggedIn,
+      auto_select: true,
+      onSuccess: googleLoginSuccess,
+      onError: () => {
+        toast.error("Login Failed");
+      },
+    });
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -60,7 +62,7 @@ export default function Navbar({ navItems }) {
   if (!mounted) return null;
 
   return (
-    <header className="navbar shadow w-full lg:justify-around">
+    <header className="navbar shadow-sm w-full lg:justify-around">
       <div className="flex-none lg:hidden">
         <label
           htmlFor="my-drawer-3"

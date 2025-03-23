@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }) {
     );
   }
   return (
-    <main className="!p-0">
+    <main className="p-0!">
       <DashboardSidebar>{children}</DashboardSidebar>
     </main>
   );

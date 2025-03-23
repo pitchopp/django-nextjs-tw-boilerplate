@@ -16,7 +16,7 @@ export default function Sidebar({ navItems, children, className, ...props }) {
       <Topbar drawer="my-drawer" className="h-12 absolute top-0 left-0" />
         {children}
       </div>
-      <div className="drawer-side border-r shadow-sm">
+      <div className="drawer-side border-r shadow-xs">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"
@@ -27,13 +27,13 @@ export default function Sidebar({ navItems, children, className, ...props }) {
             <Image src={logo} alt="Logo" className="w-32 h-auto mx-auto" />
           </Link>
           <div className="divider"></div>
-          <ul className="flex-1 !my-0">
+          <ul className="flex-1 my-0!">
             {navItems.map((item, index) => (
               <li key={index}>
                 <Link
                   href={item.href}
                   target={item.target}
-                  className={`${pathname === item.href ? "active" : ""}`}
+                  className={`${pathname === item.href ? "menu-active" : ""}`}
                 >
                   {item.icon && <item.icon className="size-4" />}
                   <span>{item.title}</span>
@@ -41,8 +41,8 @@ export default function Sidebar({ navItems, children, className, ...props }) {
               </li>
             ))}
           </ul>
-          <div className="divider !my-0"></div>
-          <ul className="!my-0">
+          <div className="divider my-0!"></div>
+          <ul className="my-0!">
             <li>
               <Link href="/auth/logout" className="flex">
                 <FaPowerOff className="size-4" />

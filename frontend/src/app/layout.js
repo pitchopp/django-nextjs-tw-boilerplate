@@ -57,6 +57,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const googleClientId = env("GOOGLE_OAUTH_CLIENT_ID");
+  const googleDisabled = env("NEXT_PUBLIC_DISABLE_GOOGLE_LOGIN");
+  const googleEnabled =
+    !googleDisabled || ["0", "false"].includes(googleDisabled.toLowerCase());
+
+  const body = (
+    <GlobalStateProvider>
+      <Toaster position="top-right" />
+      {children}
+    </GlobalStateProvider>
+  );
 
   return (
     <html
@@ -67,12 +77,13 @@ export default function RootLayout({ children }) {
         <PublicEnvScript />
       </head>
       <body className={`min-h-screen antialiased`}>
-        <GoogleOAuthProvider clientId={googleClientId}>
-          <GlobalStateProvider>
-            <Toaster position="top-right" />
-            {children}
-          </GlobalStateProvider>
-        </GoogleOAuthProvider>
+        {googleEnabled ? (
+          <GoogleOAuthProvider clientId={googleClientId}>
+            {body}
+          </GoogleOAuthProvider>
+        ) : (
+          body
+        )}
       </body>
     </html>
   );
