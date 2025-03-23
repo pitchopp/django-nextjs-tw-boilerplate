@@ -5,8 +5,8 @@ This is a boilerplate for Django and Next.js with Tailwind CSS.
 ## Features
 
 - Django 5
-- Next.js 14
-- Tailwind CSS 3
+- Next.js 15
+- Tailwind CSS 4
 - Docker
 - Docker Compose
 
@@ -27,7 +27,3 @@ Put your credentials in .env file
 Create a database on neon or any other database provider.
 
 Put your credentials in .env file
-
-## TODO
-
-- [ ] Add tests
