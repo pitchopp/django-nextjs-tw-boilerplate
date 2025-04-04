@@ -34,14 +34,19 @@ format:
 	make backend-format
 
 dev:
-	docker compose -f compose.dev.yml -p $(PROJECT_NAME) up --watch --build --remove-orphans
+	docker compose -f compose.dev.yml -p $(PROJECT_NAME) build
+	docker compose -f compose.dev.yml -p $(PROJECT_NAME) up --watch --remove-orphans
 
 qa:
-	docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa up -d --build --remove-orphans
-	# docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa watch --no-up
+	docker compose -p $(PROJECT_NAME)-qa down
+	docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa pull
+	docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa --progress plain build
+	docker compose -f compose.qa.yml -p $(PROJECT_NAME)-qa up -d --remove-orphans --force-recreate
 
 prod:
-	docker compose -f compose.prod.yml -p $(PROJECT_NAME) up -d --build --remove-orphans
+	docker compose -f compose.prod.yml -p $(PROJECT_NAME) pull
+	docker compose -f compose.prod.yml -p $(PROJECT_NAME) --progress plain build
+	docker compose -f compose.prod.yml -p $(PROJECT_NAME) up -d --remove-orphans --force-recreate
 
 watchtower:
 	docker run -d --name $(PROJECT_NAME)-watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --interval 60 $(PROJECT_NAME)-backend $(PROJECT_NAME)-frontend $(PROJECT_NAME)-celery
