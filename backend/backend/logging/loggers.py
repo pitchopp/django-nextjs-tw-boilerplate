@@ -3,10 +3,7 @@ def get_loggers(apps):
         "": {
             "handlers": [
                 "console",
-                "file_debug",
-                "file_info",
-                "file_warn",
-                "file_error",
+                "file",
             ],
             "level": "DEBUG",
             "propagate": True,
@@ -14,12 +11,11 @@ def get_loggers(apps):
     }
 
     for app in apps:
-        loggers[app] = {
+        root_app = app.split(".")[0]
+        loggers[root_app] = {
             "handlers": [
-                f"{app}_file_debug",
-                f"{app}_file_info",
-                f"{app}_file_warn",
-                f"{app}_file_error",
+                "console",
+                f"{root_app}_file",
             ],
             "level": "DEBUG",
             "propagate": False,
