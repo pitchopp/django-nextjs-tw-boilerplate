@@ -57,8 +57,8 @@ export const UserAvatar = ({ user, size = "sm", className, ...props }) => {
         style={{ backgroundColor: bgColor }}
       >
         <span className={`${textSize[size]} uppercase`}>
-          {user.first_name.slice(0, 1) || "A"}
-          {user.last_name.slice(0, 1) || "F"}
+          {user.first_name.slice(0, 1) || "X"}
+          {user.last_name.slice(0, 1) || "X"}
         </span>
       </div>
     </div>

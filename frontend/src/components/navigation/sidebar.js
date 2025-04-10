@@ -16,7 +16,7 @@ export default function Sidebar({ navItems, children, className, ...props }) {
       <Topbar drawer="my-drawer" className="h-12 absolute top-0 left-0" />
         {children}
       </div>
-      <div className="drawer-side border-r shadow-xs">
+      <div className="drawer-side border-r border-base-300 shadow-xs">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"

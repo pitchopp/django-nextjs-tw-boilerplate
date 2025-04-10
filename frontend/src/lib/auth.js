@@ -52,8 +52,9 @@ export const setUserDetails = (user) => {
 };
 
 export const getUserDetails = () => {
-  if (Cookies.get("userDetails")) {
-    return JSON.parse(Cookies.get("userDetails"));
+  const userDetails = Cookies.get("userDetails");
+  if (userDetails) {
+    return JSON.parse(userDetails);
   }
   return null;
 };

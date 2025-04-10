@@ -9,7 +9,10 @@ export default function Topbar({ drawer, className, ...props }) {
   const connectedUser = getUserDetails();
 
   return (
-    <div className={`navbar min-h-0 border-b p-1 gap-2 bg-base-100 ${className}`} {...props}>
+    <div
+      className={`navbar min-h-0 border-b border-base-300 p-1 gap-2 bg-base-100 ${className}`}
+      {...props}
+    >
       <div className="space-x-1">
         <label
           htmlFor={drawer}
