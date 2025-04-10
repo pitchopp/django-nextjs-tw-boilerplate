@@ -3,6 +3,7 @@ from django.conf import settings
 from .emails import blacklist
 from post_office import mail
 from rest_framework.serializers import ValidationError
+from urllib.parse import urljoin
 
 
 class AccountAdapter(DefaultAccountAdapter):
@@ -14,7 +15,7 @@ class AccountAdapter(DefaultAccountAdapter):
         super().__init__(*args, **kwargs)
 
     def get_email_verification_redirect_url(self, email_address):
-        return f"{settings.WEBSITE_URL}/auth/login?verified=true"
+        return urljoin(settings.WEBSITE_URL, "/auth/login?verified=true")
 
     def clean_email(self, email):
         if not settings.DEBUG and email.split("@")[1] in self.emails_blacklist:
