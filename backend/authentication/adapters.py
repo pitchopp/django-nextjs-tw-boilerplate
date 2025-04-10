@@ -1,8 +1,8 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from django import forms
 from django.conf import settings
 from .emails import blacklist
 from post_office import mail
+from rest_framework.serializers import ValidationError
 
 
 class AccountAdapter(DefaultAccountAdapter):
@@ -18,7 +18,7 @@ class AccountAdapter(DefaultAccountAdapter):
 
     def clean_email(self, email):
         if not settings.DEBUG and email.split("@")[1] in self.emails_blacklist:
-            raise forms.ValidationError(
+            raise ValidationError(
                 "Ce fournisseur de messagerie n'est pas accepté. Veuillez utiliser une autre adresse de messagerie."
             )
         return super().clean_email(email)
