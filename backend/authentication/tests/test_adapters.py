@@ -1,8 +1,8 @@
 import pytest
 from django.core.mail import EmailMessage
 from post_office.models import Email, STATUS, PRIORITY
-from django import forms
 from authentication.adapters import AccountAdapter
+from rest_framework import serializers
 
 
 def test_get_email_verification_redirect_url(account_adapter):
@@ -26,7 +26,7 @@ def test_clean_email_valid(account_adapter):
 def test_clean_email_blacklisted(account_adapter):
     blacklisted_email = "user@spam.com"
     # Should raise ValidationError for blacklisted email when not in DEBUG mode
-    with pytest.raises(forms.ValidationError) as excinfo:
+    with pytest.raises(serializers.ValidationError) as excinfo:
         account_adapter.clean_email(blacklisted_email)
     assert "Ce fournisseur de messagerie n'est pas accepté." in str(excinfo.value)
 
