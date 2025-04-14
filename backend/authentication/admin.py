@@ -23,7 +23,38 @@ admin.site.unregister(SolarSchedule)
 User = get_user_model()
 
 
-class UserAdmin(BaseUserAdmin, ImportExportModelAdmin): ...
-
-
-admin.site.register(User, UserAdmin)
+@admin.register(User)
+class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
+    list_display = ("email", "first_name", "last_name", "last_activity")
+    fieldsets = (
+        (None, {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_staff",
+                    "is_superuser",
+                    "user_permissions",
+                )
+            },
+        ),
+    )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password1",
+                    "password2",
+                ),
+            },
+        ),
+    )
+    search_fields = ("email", "first_name", "last_name")
+    ordering = ("-last_activity",)
