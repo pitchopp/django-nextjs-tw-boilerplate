@@ -8,4 +8,4 @@ format:
 	# not implemented yet
 
 dev:
-	npm run dev
+	npm run dev:turbo
