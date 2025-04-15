@@ -7,7 +7,11 @@ export const storeToken = async (token, type) => {
 
 export const getToken = async (type) => {
   const cookieStore = await cookies();
-  return cookieStore.get(type + "Token");
+  const token = cookieStore.get(type + "Token");
+  if (token) {
+    return token.value;
+  }
+  return null;
 };
 
 export const removeTokens = async () => {
@@ -44,8 +48,9 @@ export const setUserDetails = async (user) => {
 
 export const getUserDetails = async () => {
   const cookieStore = await cookies();
-  if (cookieStore.get("userDetails")) {
-    return JSON.parse(cookieStore.get("userDetails"));
+  const userDetails = cookieStore.get("userDetails");
+  if (userDetails) {
+    return JSON.parse(userDetails.value);
   }
   return null;
 };
